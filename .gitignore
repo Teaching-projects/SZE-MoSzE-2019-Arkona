@@ -1,0 +1,5 @@
+#files to be ignored
+
+*.pro*
+*.out*
+*.gch*
