@@ -3,3 +3,4 @@
 *.pro*
 *.out*
 *.gch*
+*.vcxproj.*
