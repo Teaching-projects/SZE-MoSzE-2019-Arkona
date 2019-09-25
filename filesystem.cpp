@@ -59,8 +59,8 @@ void Filesystem::mkdir(stringstream &ss)
 	string name;
 	ss >> name;
 
-	if(!currentDirectory->mkdir(new Directory(name))){
-        	cout << "Directory already exists\n";
+	if (!currentDirectory->mkdir(new Directory(name))){
+        cout << "Directory already exists\n";
    	 }
 
 }
@@ -92,6 +92,9 @@ void Filesystem::cd(stringstream &ss)
 	}
 
 	if (directoryName == "..") {
+		if(currentDirectory->getNameRaw() == "~"){
+			return;
+		}
 		currentLocation.pop_back();
 		currentDirectory = currentLocation.back();
 		return;
