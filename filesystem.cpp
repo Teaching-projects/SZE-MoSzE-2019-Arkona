@@ -59,7 +59,10 @@ void Filesystem::mkdir(stringstream &ss)
 	string name;
 	ss >> name;
 
-	currentDirectory->mkdir(new Directory(name));
+	if(!currentDirectory->mkdir(new Directory(name))){
+        	cout << "Directory already exists\n";
+   	 }
+
 }
 
 void Filesystem::touch(stringstream &ss)

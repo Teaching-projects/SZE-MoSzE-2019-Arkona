@@ -33,7 +33,9 @@ void Directory::treelist(int indent) const
 
 bool Directory::mkdir(Directory *d)
 {
-    
+	for (auto dir : directories) {
+		if (dir = d) return false;
+	}
     directories.push_back(d);
     return true;
 }
