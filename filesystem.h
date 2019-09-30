@@ -18,7 +18,12 @@ private:
     void runCommand(string line);
     void mkdir(stringstream& ss);
     void touch(stringstream& ss);
+
     void cd(stringstream& ss);
+    void cdRoot();
+    void cdParent();
+    bool cdToDirectory(Directory* newLocation);
+    
     void rm(stringstream& ss);
 public:
     Filesystem(){

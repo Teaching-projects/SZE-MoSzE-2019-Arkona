@@ -7,11 +7,6 @@ void Filesystem::printUserandLocation()
 		cout << dir->getName();
 	}
 	cout << "\n$ ";
-
-	for (vector<Directory*>::iterator it = currentLocation.begin(); it != currentLocation.end(); it++) {
-
-	}
-
 }
 
 void Filesystem::run()
@@ -88,30 +83,45 @@ void Filesystem::cd(stringstream &ss)
 	ss >> directoryName;
 
 	if (directoryName.empty()) {
-		currentLocation = vector<Directory*>{};
-		currentLocation.push_back(root);
-		currentDirectory = root;
+		this->cdParent();
 		return;
 	}
 
 	if (directoryName == "..") {
-		if(currentDirectory->getNameRaw() == "~"){
-			return;
-		}
-		currentLocation.pop_back();
-		currentDirectory = currentLocation.back();
+		this->cdRoot();
 		return;
 	}
 
-    Directory* newLocation = currentDirectory->contains(directoryName);
+    if(!this->cdToDirectory(currentDirectory->contains(directoryName))){
+		cout << "Directory Not Found\n";
+	}
+}
 
+void Filesystem::cdRoot()
+{
+	if(currentDirectory->getNameRaw() == "~"){
+		return;
+	}
+	currentLocation.pop_back();
+	currentDirectory = currentLocation.back();
+	return;
+}
+
+void Filesystem::cdParent()
+{
+	currentLocation = vector<Directory*>{};
+	currentLocation.push_back(root);
+	currentDirectory = root;
+}
+
+bool Filesystem::cdToDirectory(Directory* newLocation)
+{
     if (newLocation) {
 		currentDirectory = newLocation;
 		currentLocation.push_back(newLocation);
-		return;
+		return true;
 	}
-
-	cout << "Directory Not Found\n";
+	return false;
 }
 
 void Filesystem::rm(stringstream &ss)
@@ -121,8 +131,6 @@ void Filesystem::rm(stringstream &ss)
 	if(arg1.empty()){
 		return;
 	}
-
-	
 
 	if(arg1 == "-rf"){
 		//cerr << "called RM RF \n";
@@ -146,6 +154,7 @@ void Filesystem::rm(stringstream &ss)
 	Directory* dirToDelete = currentDirectory->contains(arg1);
 	if(dirToDelete){
 		cerr << "Cannot remove: '" << dirToDelete->getNameRaw() << "' it is a directory\n";
+		return;
 	}
 	if(!fileToDelete){
 		cerr << "File does not exist\n";
