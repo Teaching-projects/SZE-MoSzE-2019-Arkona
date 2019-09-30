@@ -21,6 +21,8 @@ public:
     bool operator ==(Directory d){
         return d.name == this->name;
     }
+    void deleteDirectory(string dir);
+    bool rm(bool rm);
     void treelist(int indent) const;
     void ls() const;
     Directory* contains(string dirname) const;

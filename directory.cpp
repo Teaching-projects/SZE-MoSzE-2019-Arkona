@@ -10,6 +10,27 @@ void Directory::ls() const
     }
 }
 
+bool Directory::rm(bool rm)
+{
+    if(rm){
+        for(auto& file: files){
+            delete file;
+        }
+        files = std::vector<File*>();
+        for(auto& dir: directories){
+            dir->rm(rm);
+            delete dir;    
+        }
+        directories = std::vector<Directory*>();
+    }else{
+        if(!this->directories.empty() && !this->files.empty()){
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void printIndents(int indent)
 {
     for(int i=0;i< indent;i++){
@@ -33,8 +54,10 @@ void Directory::treelist(int indent) const
 
 bool Directory::mkdir(Directory *d)
 {
-	for (auto dir : directories) {
-		if (dir = d) return false;
+	for (auto& dir : directories) {
+		if (dir == d){
+            return false;
+        }
 	}
     directories.push_back(d);
     return true;
@@ -48,6 +71,17 @@ bool Directory::touch(File *f)
 
     files.push_back(f);
     return true;
+}
+
+void Directory::deleteDirectory(string dir)
+{
+    auto it = directories.begin();
+    while(it != directories.end()){
+        if((*it)->getNameRaw() == dir){
+            delete *it;
+            directories.erase(it);
+        }
+    }
 }
 
 Directory* Directory::contains(string dirname) const

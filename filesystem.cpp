@@ -48,6 +48,9 @@ void Filesystem::runCommand(string line)
 	else if (command == "treelist") {
 		root->treelist(0);
 	}
+	else if (command == "rm"){
+		this->rm(ss);
+	}
 	else {
 		cout << "Wrong command!"<<endl;
 		return;
@@ -100,14 +103,41 @@ void Filesystem::cd(stringstream &ss)
 		return;
 	}
 
-	Directory* newLocation = new Directory(directoryName);
+	Directory* newLocation;
 
-	if (newLocation) {
+	if (newLocation = currentDirectory->contains(directoryName)) {
 		currentDirectory = newLocation;
 		currentLocation.push_back(newLocation);
 		return;
 	}
 
 	cout << "Directory Not Found\n";
+}
+
+void Filesystem::rm(stringstream &ss)
+{
+	string arg1;
+	ss >> arg1;
+
+	Directory* dirToDelete;
+
+	if(arg1 == "-rf"){
+		string dirName;
+		ss >> dirName;
+
+		dirToDelete = currentDirectory->contains(dirName);
+		if(dirToDelete){
+			dirToDelete->rm(true);
+			currentDirectory->deleteDirectory(dirToDelete->getNameRaw());
+		}
+		return;
+	}
+
+	dirToDelete = currentDirectory->contains(arg1);
+	if(dirToDelete && !dirToDelete->rm(false)){
+		std::cout << "Can only delete empty folders!\n";
+		return;
+	}
+	currentDirectory->deleteDirectory(dirToDelete->getNameRaw());
 
 }

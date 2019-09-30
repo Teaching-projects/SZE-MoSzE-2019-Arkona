@@ -19,6 +19,7 @@ private:
     void mkdir(stringstream& ss);
     void touch(stringstream& ss);
     void cd(stringstream& ss);
+    void rm(stringstream& ss);
 public:
     Filesystem(){
         currentDirectory = root;
