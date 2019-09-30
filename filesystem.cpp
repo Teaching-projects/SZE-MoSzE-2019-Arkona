@@ -103,9 +103,9 @@ void Filesystem::cd(stringstream &ss)
 		return;
 	}
 
-	Directory* newLocation;
+    Directory* newLocation = currentDirectory->contains(directoryName);
 
-	if (newLocation = currentDirectory->contains(directoryName)) {
+    if (newLocation) {
 		currentDirectory = newLocation;
 		currentLocation.push_back(newLocation);
 		return;
@@ -118,26 +118,38 @@ void Filesystem::rm(stringstream &ss)
 {
 	string arg1;
 	ss >> arg1;
+	if(arg1.empty()){
+		return;
+	}
 
-	Directory* dirToDelete;
+	
 
 	if(arg1 == "-rf"){
+		//cerr << "called RM RF \n";
 		string dirName;
 		ss >> dirName;
+		
+		if(dirName.empty()){
+			return;
+		}
 
-		dirToDelete = currentDirectory->contains(dirName);
+		Directory* dirToDelete = currentDirectory->contains(dirName);
 		if(dirToDelete){
-			dirToDelete->rm(true);
+			dirToDelete->rm();
 			currentDirectory->deleteDirectory(dirToDelete->getNameRaw());
 		}
 		return;
 	}
 
-	dirToDelete = currentDirectory->contains(arg1);
-	if(dirToDelete && !dirToDelete->rm(false)){
-		std::cout << "Can only delete empty folders!\n";
-		return;
+	//cerr << "Called RM\n";
+	File* fileToDelete = currentDirectory->containsFile(arg1);
+	Directory* dirToDelete = currentDirectory->contains(arg1);
+	if(dirToDelete){
+		cerr << "Cannot remove: '" << dirToDelete->getNameRaw() << "' it is a directory\n";
 	}
-	currentDirectory->deleteDirectory(dirToDelete->getNameRaw());
-
+	if(!fileToDelete){
+		cerr << "File does not exist\n";
+		return;
+	} 
+	currentDirectory->deleteFile(fileToDelete->getName());
 }

@@ -22,10 +22,12 @@ public:
         return d.name == this->name;
     }
     void deleteDirectory(string dir);
-    bool rm(bool rm);
+    void deleteFile(string fileName);
+    bool rm();
     void treelist(int indent) const;
     void ls() const;
     Directory* contains(string dirname) const;
+    File* containsFile(string fileName) const;
 };
 
 #endif // DIRECTORY_H

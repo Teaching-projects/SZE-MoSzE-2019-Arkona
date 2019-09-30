@@ -10,24 +10,17 @@ void Directory::ls() const
     }
 }
 
-bool Directory::rm(bool rm)
+bool Directory::rm()
 {
-    if(rm){
-        for(auto& file: files){
-            delete file;
-        }
-        files = std::vector<File*>();
-        for(auto& dir: directories){
-            dir->rm(rm);
-            delete dir;    
-        }
-        directories = std::vector<Directory*>();
-    }else{
-        if(!this->directories.empty() && !this->files.empty()){
-            return false;
-        }
+    for(auto& file: files){
+       delete file;
     }
-
+    files = std::vector<File*>();
+    for(auto& dir: directories){
+        dir->rm();
+        delete dir;    
+    }
+    directories = std::vector<Directory*>();
     return true;
 }
 
@@ -84,6 +77,17 @@ void Directory::deleteDirectory(string dir)
     }
 }
 
+void Directory::deleteFile(string fileName)
+{
+    auto it = files.begin();
+    while(it != files.end()){
+        if((*it)->getName() == fileName){
+            delete *it;
+            files.erase(it);
+        }
+    } 
+}
+
 Directory* Directory::contains(string dirname) const
 {
     for(auto& dir: directories){
@@ -92,4 +96,14 @@ Directory* Directory::contains(string dirname) const
     }
 
     return nullptr;
+}
+
+File* Directory::containsFile(string fileName) const
+{
+    for(auto& file: files){
+        if( file-> getName() == fileName)
+            return file;
+    }
+
+    return nullptr;  
 }
