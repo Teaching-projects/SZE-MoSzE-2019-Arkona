@@ -69,7 +69,7 @@ void Filesystem::touch(stringstream &ss)
 	ss >> name;
 	string content;
 	while (ss >> content) {
-		;
+        ;
 	}
 
 	if (!currentDirectory->touch(new File(name, content))) {
@@ -153,11 +153,11 @@ void Filesystem::rm(stringstream &ss)
 	File* fileToDelete = currentDirectory->containsFile(arg1);
 	Directory* dirToDelete = currentDirectory->contains(arg1);
 	if(dirToDelete){
-		cerr << "Cannot remove: '" << dirToDelete->getNameRaw() << "' it is a directory\n";
+        cout << "Cannot remove: '" << dirToDelete->getNameRaw() << "' it is a directory\n";
 		return;
 	}
 	if(!fileToDelete){
-		cerr << "File does not exist\n";
+        cout << "File does not exist\n";
 		return;
 	} 
 	currentDirectory->deleteFile(fileToDelete->getName());
