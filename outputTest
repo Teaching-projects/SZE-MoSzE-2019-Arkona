@@ -1,0 +1,14 @@
+User@User:~/
+$ User@User:~/
+$ User@User:~/alma/
+$ User@User:~/alma/
+$ User@User:~/alma/
+$ hello
+hello2
+User@User:~/alma/
+$ User@User:~/
+$ Cannot remove: 'alma' it is a directory
+User@User:~/
+$ alma/
+User@User:~/
+$ Terminated
