@@ -1,0 +1,9 @@
+mkdir alma
+cd alma
+touch hello
+touch hello2
+ls
+cd ..
+rm alma
+ls
+exit
