@@ -13,12 +13,12 @@ void Directory::ls() const
 bool Directory::rm()
 {
     for(auto& file: files){
-       delete file;
+        delete file;
     }
     files = std::vector<File*>();
     for(auto& dir: directories){
         dir->rm();
-        delete dir;    
+        delete dir;
     }
     directories = std::vector<Directory*>();
     return true;
@@ -45,25 +45,39 @@ void Directory::treelist(int indent) const
     }
 }
 
-bool Directory::mkdir(Directory *d)
+int Directory::mkdir(Directory *d)
 {
-	for (auto& dir : directories) {
-		if (dir == d){
-            return false;
+    for (auto& dir : directories) {
+        if (dir->getNameRaw() == d->getNameRaw()){
+            return ObjectCreationResult::DirectoryExists;
         }
-	}
+    }
+
+    for(auto& file: files){
+        if(file->getName() == d->getNameRaw()){
+            return ObjectCreationResult::FileExists;
+        }
+    }
+
     directories.push_back(d);
-    return true;
+    return ObjectCreationResult::Success;
 }
 
-bool Directory::touch(File *f)
+int Directory::touch(File *f)
 {
     for(auto& file: files){
-        if( *file == *f) return false;
+        if( *file == *f){
+            return ObjectCreationResult::FileExists;
+        }
+    }
+    for(auto& dir: directories){
+        if(f->getName() == dir->getNameRaw()){
+            return ObjectCreationResult::DirectoryExists;
+        }
     }
 
     files.push_back(f);
-    return true;
+    return ObjectCreationResult::Success;
 }
 
 void Directory::deleteDirectory(string dir)
@@ -85,7 +99,7 @@ void Directory::deleteFile(string fileName)
             delete *it;
             files.erase(it);
         }
-    } 
+    }
 }
 
 Directory* Directory::contains(string dirname) const
@@ -105,5 +119,5 @@ File* Directory::containsFile(string fileName) const
             return file;
     }
 
-    return nullptr;  
+    return nullptr;
 }

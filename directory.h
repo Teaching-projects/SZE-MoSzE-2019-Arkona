@@ -5,6 +5,8 @@
 #include "file.h"
 using namespace std;
 
+enum ObjectCreationResult{Success, DirectoryExists, FileExists};
+
 class Directory
 {
 private:
@@ -16,11 +18,12 @@ public:
         name(name){}
     string getName() const {return name + "/";}
     string getNameRaw() const {return name;}
-    bool mkdir(Directory* d);
-    bool touch(File* f);
-    bool operator ==(Directory d){
-        return d.name == this->name;
+    int mkdir(Directory* d);
+    int touch(File* f);
+    bool operator ==(Directory* d){
+        return d->name == this->name;
     }
+
     void deleteDirectory(string dir);
     void deleteFile(string fileName);
     bool rm();
