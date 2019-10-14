@@ -1,14 +1,47 @@
-orbs:
-  win: circleci/windows@1.0.0
-
-jobs:
-  build:
-    executor: machine
-    steps:
-      - checkout
-      - run: 'g++ -std=c++11 *.cpp *.h'
-workflows:
-  version: 2
-  workflow:
-    jobs:
-    - build
+  version: 2.1
+  jobs:
+    build:
+      machine: 
+        image: ubuntu-1604:201903-01 # the primary container, where your job's commands are run
+      steps:
+        - checkout # check out the code in the project directory
+        - run: g++ -std=c++11 *.cpp *.h #build the project
+    print:
+      machine:
+        image:  ubuntu-1604:201903-01  
+      steps:
+        - checkout
+        - run: cat main.cpp
+    output:
+      machine:
+        image: ubuntu-1604:201903-01
+      steps:
+        - checkout
+        - run: g++ -std=c++11 *.cpp *.h
+        - run: ls -la
+        - run: ./a.out < input
+    difference:
+      machine:
+         image: ubuntu-1604:201903-01
+      steps:
+        - checkout
+        - run: g++ -std=c++11 *.cpp *.h
+        - run: ls -la
+        - run: ./a.out < input > output
+        - run: cat output
+        - run: diff output outputTest
+        - run: pwd
+  workflows:
+    version: 2.1
+    build_print_diff:
+      jobs:
+        - build
+        - print:
+           requires:
+             - build
+        - output:
+           requires:
+             - build
+        - difference:
+           requires:
+             - build
