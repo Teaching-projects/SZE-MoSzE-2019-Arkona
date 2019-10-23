@@ -2,46 +2,47 @@
   jobs:
     build:
       machine: 
-        image: ubuntu-1604:201903-01 # the primary container, where your job's commands are run
+        image: ubuntu-1604:201903-01
       steps:
-        - checkout # check out the code in the project directory
-        - run: g++ -std=c++11 *.cpp *.h #build the project
-    print:
-      machine:
-        image:  ubuntu-1604:201903-01  
-      steps:
-        - checkout
-        - run: cat main.cpp
+        - checkout 
+        - run:
+            name: "Build"
+            command: make -f makefile
+        - persist_to_workspace:
+            root: ~/project
+            paths:
+              - terminal
+              - input
+              - outputTest
+              
     output:
       machine:
         image: ubuntu-1604:201903-01
       steps:
-        - checkout
-        - run: g++ -std=c++11 *.cpp *.h
-        - run: ls -la
-        - run: ./a.out < input
-    difference:
+        - attach_workspace:
+            at: ~/project      
+        - run:
+            name: Output
+            command: ./terminal < input
+
+    diff:
       machine:
-         image: ubuntu-1604:201903-01
+        image: ubuntu-1604:201903-01
       steps:
-        - checkout
-        - run: g++ -std=c++11 *.cpp *.h
-        - run: ls -la
-        - run: ./a.out < input > output
-        - run: cat output
-        - run: diff output outputTest
-        - run: pwd
+        - attach_workspace:
+            at: ~/project        
+        - run:
+            name: Diff
+            command: ./terminal < input > output && diff output outputTest
+            
   workflows:
-    version: 2.1
+    version: 2
     build_print_diff:
       jobs:
         - build
-        - print:
-           requires:
-             - build
         - output:
            requires:
              - build
-        - difference:
+        - diff:
            requires:
              - build
