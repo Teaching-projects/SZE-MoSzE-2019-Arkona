@@ -1,14 +1,48 @@
-orbs:
-  win: circleci/windows@1.0.0
+  version: 2.1
+  jobs:
+    build:
+      machine: 
+        image: ubuntu-1604:201903-01
+      steps:
+        - checkout 
+        - run:
+            name: "Build"
+            command: make -f makefile
+        - persist_to_workspace:
+            root: ~/project
+            paths:
+              - terminal
+              - input
+              - outputTest
+              
+    output:
+      machine:
+        image: ubuntu-1604:201903-01
+      steps:
+        - attach_workspace:
+            at: ~/project      
+        - run:
+            name: Output
+            command: ./terminal < input
 
-jobs:
-  build:
-    executor: machine
-    steps:
-      - checkout
-      - run: 'g++ -std=c++11 *.cpp *.h'
-workflows:
-  version: 2
-  workflow:
-    jobs:
-    - build
+    diff:
+      machine:
+        image: ubuntu-1604:201903-01
+      steps:
+        - attach_workspace:
+            at: ~/project        
+        - run:
+            name: Diff
+            command: ./terminal < input > output && diff output outputTest
+            
+  workflows:
+    version: 2
+    build_print_diff:
+      jobs:
+        - build
+        - output:
+           requires:
+             - build
+        - diff:
+           requires:
+             - build
