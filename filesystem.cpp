@@ -153,7 +153,7 @@ std::vector<Directory*> Filesystem::parseRelativePath(string arg)
 
     for(unsigned int i = begin ; i < arg.size(); i++){
         if( arg[i] == '/'){
-            Directory* result = relativeDirectory->contains(parsedName);
+            Directory* result = relativeDirectory->getDirectory(parsedName);
             if(result){
                 relativeDirectory = result;
                 relativePath.push_back(result);
@@ -201,7 +201,7 @@ void Filesystem::cd(stringstream &ss)
         return;
     }
 
-    if(!this->cdToDirectory(currentDirectory->contains(directoryName))){
+    if(!this->cdToDirectory(currentDirectory->getDirectory(directoryName))){
         cout << "Directory Not Found\n";
     }
 }
@@ -243,7 +243,7 @@ bool Filesystem::cdToDirectory(Directory* newLocation)
 
 void Filesystem::deleteDirFor(string name, Directory* location)
 {
-    Directory* dirToDelete = location->contains(name);
+    Directory* dirToDelete = location->getDirectory(name);
     if(dirToDelete){
         dirToDelete->rm();
         location->deleteDirectory(dirToDelete->getNameRaw());
@@ -291,8 +291,8 @@ void Filesystem::rm(stringstream &ss)
         }
 
         //cerr << "Called RM\n";
-        File* fileToDelete = relativeDirectory->containsFile(arg1);
-        Directory* dirToDelete = relativeDirectory->contains(arg1);
+        File* fileToDelete = relativeDirectory->getFile(arg1);
+        Directory* dirToDelete = relativeDirectory->getDirectory(arg1);
         if(dirToDelete){
             cout << "Cannot remove: '" << dirToDelete->getNameRaw() << "' it is a directory\n";
             return;

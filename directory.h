@@ -20,17 +20,28 @@ public:
     string getNameRaw() const {return name;}
     int mkdir(Directory* d);
     int touch(File* f);
+
+    bool operator ==(File* f){
+        return f->getName() == this->name;
+    }
+    bool operator ==(File f){
+        return f.getName() == this->name;
+    }
     bool operator ==(Directory* d){
         return d->name == this->name;
     }
+    bool operator ==(Directory d){
+        return d.name == this->name;
+    }
 
-    void deleteDirectory(string dir);
+    void deleteDirectory(string d);
     void deleteFile(string fileName);
-    bool rm();
+    void rm();
     void treelist(int indent) const;
     void ls() const;
-    Directory* contains(string dirname) const;
-    File* containsFile(string fileName) const;
+
+    Directory* getDirectory(string dirname) const;
+    File* getFile(string fileName) const;
 };
 
 #endif // DIRECTORY_H

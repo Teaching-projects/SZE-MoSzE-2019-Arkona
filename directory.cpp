@@ -1,4 +1,5 @@
 #include "directory.h"
+#include <iomanip>
 
 void Directory::ls() const
 {
@@ -10,7 +11,7 @@ void Directory::ls() const
     }
 }
 
-bool Directory::rm()
+void Directory::rm()
 {
     for(auto& file: files){
         delete file;
@@ -21,26 +22,16 @@ bool Directory::rm()
         delete dir;
     }
     directories = std::vector<Directory*>();
-    return true;
-}
-
-void printIndents(int indent)
-{
-    for(int i=0;i< indent;i++){
-        cout << "  ";
-    }
 }
 
 void Directory::treelist(int indent) const
 {
     for(auto& x: files){
-        printIndents(indent);
-        cout << x-> getName() << "\n";
+        cout << setw(indent + 4) << x-> getName() << "\n";
     }
 
     for(auto& x: directories){
-        printIndents(indent);
-        cout << x-> getName() << "\n";
+        cout << setw(indent + 4) << x-> getName() << "\n";
         x->treelist(indent + 1);
     }
 }
@@ -48,13 +39,13 @@ void Directory::treelist(int indent) const
 int Directory::mkdir(Directory *d)
 {
     for (auto& dir : directories) {
-        if (dir->getNameRaw() == d->getNameRaw()){
+        if (*dir == *d){
             return ObjectCreationResult::DirectoryExists;
         }
     }
 
     for(auto& file: files){
-        if(file->getName() == d->getNameRaw()){
+        if (*d == *file){
             return ObjectCreationResult::FileExists;
         }
     }
@@ -66,12 +57,12 @@ int Directory::mkdir(Directory *d)
 int Directory::touch(File *f)
 {
     for(auto& file: files){
-        if( *file == *f){
+        if(*file == *f){
             return ObjectCreationResult::FileExists;
         }
     }
     for(auto& dir: directories){
-        if(f->getName() == dir->getNameRaw()){
+        if(*dir == *f){
             return ObjectCreationResult::DirectoryExists;
         }
     }
@@ -80,42 +71,43 @@ int Directory::touch(File *f)
     return ObjectCreationResult::Success;
 }
 
-void Directory::deleteDirectory(string dir)
+void Directory::deleteDirectory(string d)
 {
-    auto it = directories.begin();
-    while(it != directories.end()){
-        if((*it)->getNameRaw() == dir){
+    for(auto it = directories.begin(); it != directories.end();){
+        if( **it == Directory(d)){
             delete *it;
             directories.erase(it);
+        }else{
+            it++;
         }
     }
 }
 
 void Directory::deleteFile(string fileName)
 {
-    auto it = files.begin();
-    while(it != files.end()){
-        if((*it)->getName() == fileName){
+    for(auto it = files.begin(); it != files.end();){
+        if( **it == File(fileName)){
             delete *it;
             files.erase(it);
+        }else{
+            it++;
         }
     }
 }
 
-Directory* Directory::contains(string dirname) const
+Directory* Directory::getDirectory(string dirname) const
 {
     for(auto& dir: directories){
-        if( dir-> getNameRaw() == dirname)
+        if( *dir == Directory(dirname))
             return dir;
     }
-
     return nullptr;
 }
 
-File* Directory::containsFile(string fileName) const
+File* Directory::getFile(string fileName) const
 {
     for(auto& file: files){
-        if( file-> getName() == fileName)
+        if( *file == File(fileName))
             return file;
     }
 

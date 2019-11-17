@@ -12,6 +12,10 @@ private:
 public:
     File(string name,string content = ""):
         name(name),content(content){}
+
+    bool operator ==(File* f){
+        return f->name == this->name;
+    }
     bool operator ==(File f){
         return f.name == this->name;
     }
