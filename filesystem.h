@@ -2,13 +2,13 @@
 #define FILESYSTEM_H
 #include "directory.h"
 #include <sstream>
+#include <string>
 
 class Filesystem
 {
 private:
     const string user = "User@User:";
     Directory* root = new Directory("~");
-    Directory* currentDirectory;
 
     vector<Directory*> currentLocation;
 
@@ -25,17 +25,13 @@ private:
     Directory* getRelativeDir(string path);
 
     void cd(stringstream& ss);
-    void cdRoot();
-    void cdParent();
     void cdRelativePath(string arg);
-    bool cdToDirectory(Directory* newLocation);
-    
+
     void rm(stringstream& ss);
     void deleteDirFor(string name, Directory *location);
 public:
     Filesystem(){
-        currentDirectory = root;
-        currentLocation.push_back(currentDirectory);
+        currentLocation.push_back(root);
     }
 
     void run();

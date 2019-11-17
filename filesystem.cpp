@@ -94,11 +94,11 @@ void evaluateResult(int result, bool func){
 
 void Filesystem::mkdir(stringstream &ss)
 {
-    string name;
-    ss >> name;
-
     string path;
     ss >> path;
+
+    string name = path.substr(path.find_last_of("/") + 1);
+    path.erase(path.length() - name.size());
 
     Directory* relativeDir = this->getRelativeDir(path);
 
@@ -108,7 +108,6 @@ void Filesystem::mkdir(stringstream &ss)
 
     int result = relativeDir->mkdir(new Directory(name));
     evaluateResult(result,true);
-
 }
 
 void Filesystem::touch(stringstream &ss)
@@ -135,6 +134,12 @@ void Filesystem::touch(stringstream &ss)
 
 std::vector<Directory*> Filesystem::parseRelativePath(string arg)
 {
+
+    if(arg == "/"){
+        std::vector<Directory*> newPath{this->root};
+        return newPath;
+    }
+
     std::vector<Directory*> relativePath;
     if(arg.back() != '/'){
         std::cout << "Relative path should end with /\n";
@@ -148,7 +153,7 @@ std::vector<Directory*> Filesystem::parseRelativePath(string arg)
         relativeDirectory = this->root;
         begin++;
     }else{
-        relativeDirectory = this->currentDirectory;
+        relativeDirectory = this->currentLocation.back();
     }
 
     for(unsigned int i = begin ; i < arg.size(); i++){
@@ -176,7 +181,7 @@ Directory* Filesystem::getRelativeDir(string path)
         return this->parseRelativePath(path).back();
     }
 
-    return this->currentDirectory;
+    return this->currentLocation.back();
 }
 
 void Filesystem::cd(stringstream &ss)
@@ -184,61 +189,31 @@ void Filesystem::cd(stringstream &ss)
     string directoryName;
     ss >> directoryName;
 
-
-
     if (directoryName.empty()) {
-        this->cdRoot();
-        return;
+        this->cdRelativePath("/");
     }
-
-    if(directoryName.find('/') != std::string::npos){
+    else if(directoryName.find('/') != std::string::npos){
         this->cdRelativePath(directoryName);
-        return;
     }
-
-    if (directoryName == "..") {
-        this->cdParent();
-        return;
+    else if (directoryName == "..") {
+        if(currentLocation.back()->getNameRaw() == "~"){
+            return;
+        }
+        currentLocation.pop_back();
     }
-
-    if(!this->cdToDirectory(currentDirectory->getDirectory(directoryName))){
+    else if(currentLocation.back()->getDirectory(directoryName)){
+       currentLocation.push_back(currentLocation.back()->getDirectory(directoryName));
+    }else{
         cout << "Directory Not Found\n";
     }
-}
-
-void Filesystem::cdRoot()
-{
-    currentLocation = vector<Directory*>{};
-    currentLocation.push_back(root);
-    currentDirectory = root;
-}
-
-void Filesystem::cdParent()
-{
-    if(currentDirectory->getNameRaw() == "~"){
-        return;
-    }
-    currentLocation.pop_back();
-    currentDirectory = currentLocation.back();
 }
 
 void Filesystem::cdRelativePath(string arg)
 {
     auto result = this->parseRelativePath(arg);
     if(result.back()){
-        this->currentDirectory = result.back();
-        this->currentLocation.insert(this->currentLocation.end(), result.begin(), result.end());
+        this->currentLocation = result;
     }
-}
-
-bool Filesystem::cdToDirectory(Directory* newLocation)
-{
-    if (newLocation) {
-        currentDirectory = newLocation;
-        currentLocation.push_back(newLocation);
-        return true;
-    }
-    return false;
 }
 
 void Filesystem::deleteDirFor(string name, Directory* location)
@@ -269,7 +244,7 @@ void Filesystem::rm(stringstream &ss)
         if(relativeDirectory == nullptr){
             return;
         }
-        if(relativeDirectory != this->currentDirectory){
+        if(relativeDirectory != this->currentLocation.back()){
             ss >> arg2;
             if(arg2.empty()){
                 return;
@@ -283,7 +258,7 @@ void Filesystem::rm(stringstream &ss)
         if(relativeDirectory == nullptr){
             return;
         }
-        if(relativeDirectory != this->currentDirectory){
+        if(relativeDirectory != this->currentLocation.back()){
             ss >> arg1;
             if(arg1.empty()){
                 return;
@@ -293,14 +268,18 @@ void Filesystem::rm(stringstream &ss)
         //cerr << "Called RM\n";
         File* fileToDelete = relativeDirectory->getFile(arg1);
         Directory* dirToDelete = relativeDirectory->getDirectory(arg1);
+
         if(dirToDelete){
-            cout << "Cannot remove: '" << dirToDelete->getNameRaw() << "' it is a directory\n";
-            return;
+            if(dirToDelete->isEmpty() == false){
+                cout << "Cannot remove: '" << dirToDelete->getNameRaw() << "' it is not an empty directory\n";
+            }else{
+                this->deleteDirFor(arg1,relativeDirectory);
+            }
+        }else if(fileToDelete){
+            relativeDirectory->deleteFile(fileToDelete->getName());
+        }else{
+            cout << "File or Directory does not exist\n";
         }
-        if(!fileToDelete){
-            cout << "File does not exist\n";
-            return;
-        }
-        relativeDirectory->deleteFile(fileToDelete->getName());
+
     }
 }

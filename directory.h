@@ -21,6 +21,8 @@ public:
     int mkdir(Directory* d);
     int touch(File* f);
 
+    bool isEmpty() const;
+
     bool operator ==(File* f){
         return f->getName() == this->name;
     }

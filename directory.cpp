@@ -95,6 +95,11 @@ void Directory::deleteFile(string fileName)
     }
 }
 
+bool Directory::isEmpty() const
+{
+    return this->files.empty() && this->directories.empty();
+}
+
 Directory* Directory::getDirectory(string dirname) const
 {
     for(auto& dir: directories){
