@@ -66,27 +66,17 @@ void Filesystem::ls(stringstream &ss)
     relativeDir->ls();
 }
 
-void printFuncName(bool func){
-    if(func){
-        std::cout<< "mkdir: cannot create directory: ";
-    }else{
-        std::cout<< "touch: cannot create File: ";
-    }
-}
-
-void evaluateResult(int result, bool func){
+void evaluateResult(int result){
     switch(result){
     case Success:{
         break;
     }
     case FileExists:{
-        printFuncName(func);
-        std::cout << "File exists\n";
+        std::cout <<"Error: File with same name exists\n";
         break;
     }
     case DirectoryExists:{
-        printFuncName(func);
-        std::cout << "Directory exists\n";
+        std::cout << "Error: Directory with same name exists\n";
         break;
     }
     }
@@ -107,16 +97,16 @@ void Filesystem::mkdir(stringstream &ss)
     }
 
     int result = relativeDir->mkdir(new Directory(name));
-    evaluateResult(result,true);
+    evaluateResult(result);
 }
 
 void Filesystem::touch(stringstream &ss)
 {
-    string name;
-    ss >> name;
-
     string path;
     ss >> path;
+
+    string name = path.substr(path.find_last_of("/") + 1);
+    path.erase(path.length() - name.size());
 
     Directory* relativeDir = this->getRelativeDir(path);
 
@@ -129,7 +119,7 @@ void Filesystem::touch(stringstream &ss)
     }
 
     int result = relativeDir->touch(new File(name,content));
-    evaluateResult(result,false);
+    evaluateResult(result);
 }
 
 std::vector<Directory*> Filesystem::parseRelativePath(string arg)
@@ -202,7 +192,7 @@ void Filesystem::cd(stringstream &ss)
         currentLocation.pop_back();
     }
     else if(currentLocation.back()->getDirectory(directoryName)){
-       currentLocation.push_back(currentLocation.back()->getDirectory(directoryName));
+        currentLocation.push_back(currentLocation.back()->getDirectory(directoryName));
     }else{
         cout << "Directory Not Found\n";
     }

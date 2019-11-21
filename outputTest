@@ -3,12 +3,18 @@ $ User@User:~/
 $ User@User:~/alma/
 $ User@User:~/alma/
 $ User@User:~/alma/
+$ User@User:~/alma/
+$ User@User:~/
+$ Error: Directory with same name exists
+User@User:~/
+$ User@User:~/
+$ User@User:~/alma/
 $ hello
 hello2
+korte/
+banan/
 User@User:~/alma/
 $ User@User:~/
-$ Cannot remove: 'alma' it is not an empty directory
-User@User:~/
-$ alma/
-User@User:~/
+$ User@User:~/
+$ User@User:~/
 $ Terminated

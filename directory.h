@@ -23,24 +23,14 @@ public:
 
     bool isEmpty() const;
 
-    bool operator ==(File* f){
-        return f->getName() == this->name;
-    }
-    bool operator ==(File f){
-        return f.getName() == this->name;
-    }
-    bool operator ==(Directory* d){
-        return d->name == this->name;
-    }
-    bool operator ==(Directory d){
-        return d.name == this->name;
-    }
-
     void deleteDirectory(string d);
     void deleteFile(string fileName);
     void rm();
     void treelist(int indent) const;
     void ls() const;
+
+    bool containsFile(string fileName) const;
+    bool containsDirectory(string dirName) const;
 
     Directory* getDirectory(string dirname) const;
     File* getFile(string fileName) const;

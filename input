@@ -2,8 +2,13 @@ mkdir alma
 cd alma
 touch hello
 touch hello2
+mkdir korte
+cd
+touch /alma/korte
+mkdir /alma/banan
+cd alma
 ls
 cd ..
-rm alma
+rm -rf alma
 ls
 exit

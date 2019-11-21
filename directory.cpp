@@ -39,13 +39,13 @@ void Directory::treelist(int indent) const
 int Directory::mkdir(Directory *d)
 {
     for (auto& dir : directories) {
-        if (*dir == *d){
+        if (dir->getNameRaw() == d->getNameRaw()){
             return ObjectCreationResult::DirectoryExists;
         }
     }
 
     for(auto& file: files){
-        if (*d == *file){
+        if (d->getNameRaw() == file->getName()){
             return ObjectCreationResult::FileExists;
         }
     }
@@ -62,7 +62,7 @@ int Directory::touch(File *f)
         }
     }
     for(auto& dir: directories){
-        if(*dir == *f){
+        if(dir->getNameRaw() == f->getName()){
             return ObjectCreationResult::DirectoryExists;
         }
     }
@@ -74,7 +74,7 @@ int Directory::touch(File *f)
 void Directory::deleteDirectory(string d)
 {
     for(auto it = directories.begin(); it != directories.end();){
-        if( **it == Directory(d)){
+        if( (*it)->getNameRaw() == d ){
             delete *it;
             directories.erase(it);
         }else{
@@ -103,7 +103,7 @@ bool Directory::isEmpty() const
 Directory* Directory::getDirectory(string dirname) const
 {
     for(auto& dir: directories){
-        if( *dir == Directory(dirname))
+        if( dir->getNameRaw() == dirname)
             return dir;
     }
     return nullptr;
@@ -112,7 +112,7 @@ Directory* Directory::getDirectory(string dirname) const
 File* Directory::getFile(string fileName) const
 {
     for(auto& file: files){
-        if( *file == File(fileName))
+        if( file->getName() == fileName)
             return file;
     }
 
