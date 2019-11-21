@@ -36,39 +36,42 @@ void Directory::treelist(int indent) const
     }
 }
 
-int Directory::mkdir(Directory *d)
+int Directory::canCreate(string name) const
 {
     for (auto& dir : directories) {
-        if (dir->getNameRaw() == d->getNameRaw()){
+        if (dir->getNameRaw() == name){
             return ObjectCreationResult::DirectoryExists;
         }
     }
 
     for(auto& file: files){
-        if (d->getNameRaw() == file->getName()){
+        if (file->getName() == name){
             return ObjectCreationResult::FileExists;
         }
     }
 
-    directories.push_back(d);
     return ObjectCreationResult::Success;
 }
 
-int Directory::touch(File *f)
+int Directory::mkdir(string dirName)
 {
-    for(auto& file: files){
-        if(*file == *f){
-            return ObjectCreationResult::FileExists;
-        }
-    }
-    for(auto& dir: directories){
-        if(dir->getNameRaw() == f->getName()){
-            return ObjectCreationResult::DirectoryExists;
-        }
-    }
+    int result = this->canCreate(dirName);
 
-    files.push_back(f);
-    return ObjectCreationResult::Success;
+    if(result == Success){
+        directories.push_back(new Directory(dirName));
+    }
+    return result;
+}
+
+int Directory::touch(string fileName, string content)
+{
+    int result = this->canCreate(fileName);
+
+    if(result == Success){
+        files.push_back(new File(fileName,content));
+    }
+    return result;
+
 }
 
 void Directory::deleteDirectory(string d)

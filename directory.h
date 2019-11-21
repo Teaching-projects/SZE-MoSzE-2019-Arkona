@@ -13,13 +13,15 @@ private:
     vector<Directory*> directories;
     vector<File*> files;
     string name;
+
+    int canCreate(string name) const;
 public:
     Directory(string name):
         name(name){}
     string getName() const {return name + "/";}
     string getNameRaw() const {return name;}
-    int mkdir(Directory* d);
-    int touch(File* f);
+    int mkdir(string dirName);
+    int touch(string fileName, string content);
 
     bool isEmpty() const;
 

@@ -96,7 +96,7 @@ void Filesystem::mkdir(stringstream &ss)
         return;
     }
 
-    int result = relativeDir->mkdir(new Directory(name));
+    int result = relativeDir->mkdir(name);
     evaluateResult(result);
 }
 
@@ -118,7 +118,7 @@ void Filesystem::touch(stringstream &ss)
     while (ss >> content) {
     }
 
-    int result = relativeDir->touch(new File(name,content));
+    int result = relativeDir->touch(name,content);
     evaluateResult(result);
 }
 
