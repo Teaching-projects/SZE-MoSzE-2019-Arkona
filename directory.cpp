@@ -1,4 +1,5 @@
 #include "directory.h"
+#include <iomanip>
 
 void Directory::ls() const
 {
@@ -10,100 +11,113 @@ void Directory::ls() const
     }
 }
 
-bool Directory::rm()
+void Directory::rm()
 {
     for(auto& file: files){
-       delete file;
+        delete file;
     }
     files = std::vector<File*>();
     for(auto& dir: directories){
         dir->rm();
-        delete dir;    
+        delete dir;
     }
     directories = std::vector<Directory*>();
-    return true;
-}
-
-void printIndents(int indent)
-{
-    for(int i=0;i< indent;i++){
-        cout << "  ";
-    }
 }
 
 void Directory::treelist(int indent) const
 {
     for(auto& x: files){
-        printIndents(indent);
-        cout << x-> getName() << "\n";
+        cout << setw(indent + 4) << x-> getName() << "\n";
     }
 
     for(auto& x: directories){
-        printIndents(indent);
-        cout << x-> getName() << "\n";
+        cout << setw(indent + 4) << x-> getName() << "\n";
         x->treelist(indent + 1);
     }
 }
 
-bool Directory::mkdir(Directory *d)
+int Directory::canCreate(string name) const
 {
-	for (auto& dir : directories) {
-		if (dir == d){
-            return false;
+    for (auto& dir : directories) {
+        if (dir->getNameRaw() == name){
+            return ObjectCreationResult::DirectoryExists;
         }
-	}
-    directories.push_back(d);
-    return true;
-}
-
-bool Directory::touch(File *f)
-{
-    for(auto& file: files){
-        if( *file == *f) return false;
     }
 
-    files.push_back(f);
-    return true;
+    for(auto& file: files){
+        if (file->getName() == name){
+            return ObjectCreationResult::FileExists;
+        }
+    }
+
+    return ObjectCreationResult::Success;
 }
 
-void Directory::deleteDirectory(string dir)
+int Directory::mkdir(string dirName)
 {
-    auto it = directories.begin();
-    while(it != directories.end()){
-        if((*it)->getNameRaw() == dir){
+    int result = this->canCreate(dirName);
+
+    if(result == Success){
+        directories.push_back(new Directory(dirName));
+    }
+    return result;
+}
+
+int Directory::touch(string fileName, string content)
+{
+    int result = this->canCreate(fileName);
+
+    if(result == Success){
+        files.push_back(new File(fileName,content));
+    }
+    return result;
+
+}
+
+void Directory::deleteDirectory(string d)
+{
+    for(auto it = directories.begin(); it != directories.end();){
+        if( (*it)->getNameRaw() == d ){
             delete *it;
             directories.erase(it);
+        }else{
+            it++;
         }
     }
 }
 
 void Directory::deleteFile(string fileName)
 {
-    auto it = files.begin();
-    while(it != files.end()){
-        if((*it)->getName() == fileName){
+    for(auto it = files.begin(); it != files.end();){
+        if( **it == File(fileName)){
             delete *it;
             files.erase(it);
+        }else{
+            it++;
         }
-    } 
+    }
 }
 
-Directory* Directory::contains(string dirname) const
+bool Directory::isEmpty() const
+{
+    return this->files.empty() && this->directories.empty();
+}
+
+Directory* Directory::getDirectory(string dirname) const
 {
     for(auto& dir: directories){
-        if( dir-> getNameRaw() == dirname)
+        if( dir->getNameRaw() == dirname)
             return dir;
     }
-
     return nullptr;
 }
 
-File* Directory::containsFile(string fileName) const
+File* Directory::getFile(string fileName) const
 {
     for(auto& file: files){
-        if( file-> getName() == fileName)
+        if( file->getName() == fileName)
             return file;
     }
 
-    return nullptr;  
+    return nullptr;
 }
