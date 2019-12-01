@@ -23,7 +23,7 @@
             at: ~/project      
         - run:
             name: Output
-            command: ./terminal < input
+            command: ./terminal filesystem.json < input
 
     diff:
       machine:
@@ -33,7 +33,7 @@
             at: ~/project        
         - run:
             name: Diff
-            command: ./terminal < input > output && diff output outputTest
+            command: ./terminal filesystem.json < input > output && diff output outputTest
             
   workflows:
     version: 2
