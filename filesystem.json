@@ -1,1 +1,1 @@
- {  "name" : "" ,  "files" : [ { "name" : "hello" , "content" : } } ],  "directories" : [  {  "name" : "alma" ,  "files" : [ ],  "directories" : [  ]  }  ]  } 
+ {  "name" : "" ,  "files" : [ { "name" : "alma" , "content" : "" } ],  "directories" : [  {  "name" : "rootDirectory" ,  "files" : [ ],  "directories" : [  ]  }  ,  {  "name" : "Subjects" ,  "files" : [ { "name" : "T4MSD" , "content" : "" } ],  "directories" : [  {  "name" : "OOP" ,  "files" : [ ],  "directories" : [  ]  }  ]  }  ]  } 
