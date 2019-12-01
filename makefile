@@ -1,4 +1,4 @@
-OBJS=main.o filesystem.o file.o directory.o
+OBJS=main.o filesystem.o file.o directory.o filesystemserializer.o
 CXXFLAGS = -g -std=c++11
 
 all: $(OBJS)
@@ -15,6 +15,9 @@ file.o: file.cpp
   
 directory.o: directory.cpp
 	g++ -c directory.cpp $(CXXFLAGS)
+	
+filesystemserializer.o: filesystemserializer.cpp
+	g++ -c filesystemserializer.cpp $(CXXFLAGS)
   
 clean:
 	rm -f *.o
