@@ -63,12 +63,33 @@ int Directory::mkdir(string dirName)
     return result;
 }
 
+int Directory::mkdir(Directory* dir)
+{
+    int result = this->canCreate(dir->getName());
+
+    if(result == Success){
+        directories.push_back(dir);
+    }
+    return result;
+}
+
 int Directory::touch(string fileName, string content)
 {
     int result = this->canCreate(fileName);
 
     if(result == Success){
         files.push_back(new File(fileName,content));
+    }
+    return result;
+
+}
+
+int Directory::touch(File *file)
+{
+    int result = this->canCreate(file->getName());
+
+    if(result == Success){
+        files.push_back(file);
     }
     return result;
 
@@ -120,4 +141,32 @@ File* Directory::getFile(string fileName) const
     }
 
     return nullptr;
+}
+
+std::string Directory::getJsonContent(std::string current)
+{
+    current += " { ";
+
+    current += " \"name\" : \"" + this->name + "\" , ";
+
+    current += " \"files\" : [ ";
+    for(auto& file: this->files){
+        current = file->getJsonContent(current);
+        if(this->files.size() > 1 && this->files.back() != file){
+            current += " , ";
+        }
+    }
+    current += "], ";
+
+    current += " \"directories\" : [ ";
+    for(auto& dir: this->directories){
+        current = dir->getJsonContent(current);
+        if(this->directories.size() > 1 && this->directories.back() != dir){
+            current += " , ";
+        }
+    }
+    current += " ] ";
+
+    current += " } ";
+    return current;
 }
