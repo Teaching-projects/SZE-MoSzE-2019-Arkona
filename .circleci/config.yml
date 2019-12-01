@@ -7,7 +7,7 @@
         - checkout 
         - run:
             name: "Build"
-            command: make -f makefile
+            command: make -f makefile && ls
         - persist_to_workspace:
             root: ~/project
             paths:
