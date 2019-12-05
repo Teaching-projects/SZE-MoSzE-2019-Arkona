@@ -7,6 +7,7 @@ cd
 touch /alma/korte
 mkdir /alma/banan
 cd alma
+echo Hello There > ObiWan.txt
 ls
 cd ..
 rm -rf alma
