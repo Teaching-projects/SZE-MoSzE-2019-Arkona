@@ -19,6 +19,8 @@ private:
     void mkdir(stringstream& ss);
     void touch(stringstream& ss);
 
+    void mv(stringstream& ss);
+
     void ls(stringstream& ss);
 
     std::vector<Directory *> parseRelativePath(string arg);

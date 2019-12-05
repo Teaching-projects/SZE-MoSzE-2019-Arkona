@@ -42,6 +42,8 @@ void Filesystem::runCommand(string line)
     }
     else if (command == "treelist") {
         root->treelist(0);
+    }else if (command == "mv"){
+        this->mv(ss);
     }
     else if (command == "rm"){
         this->rm(ss);
@@ -82,12 +84,37 @@ void evaluateResult(int result){
     }
 }
 
+void Filesystem::mv(stringstream &ss)
+{
+    string pathFrom;
+    ss >> pathFrom;
+
+    string name = pathFrom.substr(pathFrom.find_last_of("/") + 1);
+    pathFrom.erase(pathFrom.length() - name.size());
+
+    Directory* relativeDirFrom = this->getRelativeDir(pathFrom);
+
+    string pathTo;
+    ss >> pathTo;
+
+    string dirName = pathTo.substr(pathTo.find_last_of("/") + 1);
+    pathTo.erase(pathTo.length() - dirName.size());
+
+    Directory* relativeDirTo = this->getRelativeDir(pathTo);
+
+    if( !(relativeDirTo && relativeDirFrom) ) {
+        return;
+    }
+
+}
+
 void Filesystem::mkdir(stringstream &ss)
 {
     string path;
     ss >> path;
 
     string name = path.substr(path.find_last_of("/") + 1);
+    path.erase(path.length() - name.size());    string name = path.substr(path.find_last_of("/") + 1);
     path.erase(path.length() - name.size());
 
     Directory* relativeDir = this->getRelativeDir(path);
