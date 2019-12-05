@@ -21,6 +21,8 @@ private:
 
     void ls(stringstream& ss);
 
+    void echo(stringstream& ss);
+
     std::vector<Directory *> parseRelativePath(string arg);
     Directory* getRelativeDir(string path);
 
