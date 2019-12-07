@@ -3,12 +3,14 @@
 #include "directory.h"
 #include <sstream>
 #include <string>
+#include "filesystemserializer.h"
 
 class Filesystem
 {
 private:
     const string user = "User@User:";
     Directory* root = new Directory("~");
+    string* filename;
 
     vector<Directory*> currentLocation;
 
@@ -21,6 +23,8 @@ private:
 
     void ls(stringstream& ss);
 
+    void trimNames(char character);
+
     std::vector<Directory *> parseRelativePath(string arg);
     Directory* getRelativeDir(string path);
 
@@ -29,11 +33,18 @@ private:
 
     void rm(stringstream& ss);
     void deleteDirFor(string name, Directory *location);
-public:
-    Filesystem(){
-        currentLocation.push_back(root);
-    }
 
+    void startup(string* filename);
+    void exit(string* filename);
+public:
+    Filesystem(string* filename){
+        currentLocation.push_back(root);
+        this->filename = filename;
+        startup(filename);
+    }
+    ~Filesystem(){
+        this->exit(this->filename);
+    }
     void run();
 };
 

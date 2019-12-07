@@ -7,13 +7,14 @@
         - checkout 
         - run:
             name: "Build"
-            command: make -f makefile
+            command: make -f makefile && ls
         - persist_to_workspace:
             root: ~/project
             paths:
               - terminal
               - input
               - outputTest
+              - filesystem.json
               
     output:
       machine:
@@ -23,7 +24,7 @@
             at: ~/project      
         - run:
             name: Output
-            command: ./terminal < input
+            command: ./terminal filesystem.json < input
 
     diff:
       machine:
@@ -33,7 +34,7 @@
             at: ~/project        
         - run:
             name: Diff
-            command: ./terminal < input > output && diff output outputTest
+            command: ./terminal filesystem.json < input > output && diff output outputTest
             
   workflows:
     version: 2

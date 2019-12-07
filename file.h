@@ -1,6 +1,7 @@
 #ifndef FILE_H
 #define FILE_H
 #include <string>
+#include <algorithm>
 
 using namespace  std;
 
@@ -17,6 +18,12 @@ public:
         return f.name == this->name;
     }
     string getName() const {return name;}
+
+    string getJsonContent(string current);
+
+    void eraseCharFromName(char character){
+        name.erase(std::remove(name.begin(), name.end(), character), name.end());
+    }
 };
 
 #endif // FILE_H
