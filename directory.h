@@ -19,6 +19,14 @@ private:
 public:
     Directory(string name):
         name(name){}
+    ~Directory(){
+        for(auto& x: directories){
+            delete x;
+        }
+        for(auto& x: files){
+            delete x;
+        }
+    }
     string getName() const {return name + "/";}
     string getNameRaw() const {return name;}
 
@@ -55,6 +63,9 @@ public:
 
         name.erase(std::remove(name.begin(), name.end(), character), name.end());
     }
+
+    void releaseContents();
+
 };
 
 #endif // DIRECTORY_H

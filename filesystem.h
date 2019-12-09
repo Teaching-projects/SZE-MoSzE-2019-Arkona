@@ -9,13 +9,11 @@ class Filesystem
 {
 private:
     const string user = "User@User:";
-    Directory* root = new Directory("~");
+    Directory* root;
     string* filename;
 
     vector<Directory*> currentLocation;
 
-    vector<Directory*> directories;
-    vector<File*> files;
     void printUserandLocation();
     void runCommand(string line);
     void mkdir(stringstream& ss);
@@ -38,12 +36,13 @@ private:
     void exit(string* filename);
 public:
     Filesystem(string* filename){
+        startup(filename);
         currentLocation.push_back(root);
         this->filename = filename;
-        startup(filename);
     }
     ~Filesystem(){
         this->exit(this->filename);
+        delete root;
     }
     void run();
 };

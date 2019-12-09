@@ -170,3 +170,16 @@ std::string Directory::getJsonContent(std::string current)
     current += " } ";
     return current;
 }
+
+
+void Directory::releaseContents()
+{
+    for(auto& x: directories){
+        x->releaseContents();
+        delete x;
+    }
+
+    for(auto& x: files){
+        delete x;
+    }
+}
