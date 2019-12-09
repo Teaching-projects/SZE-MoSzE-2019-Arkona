@@ -3,13 +3,20 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
+    Filesystem* cmd;
 
-    Filesystem cmd;
+    if(argc <= 1){
+        cmd = new Filesystem(nullptr);
+    }else{
+        string filename = argv[1];
+        cmd = new Filesystem(&filename);
+    }
 
-    cmd.run();
+    //cmd->run();
 
+    delete cmd;
     cout << "Terminated\n";
 
     return 0;

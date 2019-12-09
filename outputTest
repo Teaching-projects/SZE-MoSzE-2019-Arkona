@@ -1,22 +1,23 @@
-User@User:~/
-$ User@User:~/
-$ User@User:~/alma/
-$ User@User:~/alma/
-$ User@User:~/alma/
-$ User@User:~/alma/
-$ User@User:~/
-$ Error: Directory with same name exists
-User@User:~/
-$ User@User:~/
-$ User@User:~/alma/
-$ User@User:~/alma/
-$ hello
-hello2
-ObiWan.txt
-korte/
+User@User:/
+$ alma
+rootDirectory/
+Subjects/
+User@User:/
+$ User@User:/
+$ User@User:/
+$ User@User:/
+$ User@User:/
+$ Error: File with same name exists
+User@User:/
+$ User@User:/korte/
+$ alma
+valami.txt
 banan/
-User@User:~/alma/
-$ User@User:~/
-$ User@User:~/
-$ User@User:~/
+User@User:/korte/
+$ User@User:/
+$ User@User:/
+$ alma
+rootDirectory/
+Subjects/
+User@User:/
 $ Terminated

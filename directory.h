@@ -2,6 +2,7 @@
 #define DIRECTORY_H
 #include <vector>
 #include <iostream>
+#include <algorithm>
 #include "file.h"
 using namespace std;
 
@@ -20,10 +21,16 @@ public:
         name(name){}
     string getName() const {return name + "/";}
     string getNameRaw() const {return name;}
+
     int mkdir(string dirName);
+    int mkdir(Directory* dir);
+
     int touch(string fileName, string content);
+    int touch(File* file);
 
     bool isEmpty() const;
+
+    std::string getJsonContent(std::string);
 
     void deleteDirectory(string d);
     void deleteFile(string fileName);
@@ -36,6 +43,18 @@ public:
 
     Directory* getDirectory(string dirname) const;
     File* getFile(string fileName) const;
+
+    void eraseCharFromName(char character){
+        for(auto& x: files){
+            x->eraseCharFromName(character);
+        }
+
+        for(auto& x: directories){
+            x->eraseCharFromName(character);
+        }
+
+        name.erase(std::remove(name.begin(), name.end(), character), name.end());
+    }
 };
 
 #endif // DIRECTORY_H

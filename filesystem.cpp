@@ -1,4 +1,5 @@
 #include "filesystem.h"
+#include <fstream>
 
 void Filesystem::printUserandLocation()
 {
@@ -19,6 +20,38 @@ void Filesystem::run()
         runCommand(input);
     }
 }
+
+
+void Filesystem::trimNames(char character)
+{
+    root->eraseCharFromName(character);
+}
+
+void Filesystem::startup(string* filename)
+{
+    if (filename){
+        ifstream f(*filename);
+        if(f.is_open()){
+            string json((std::istreambuf_iterator<char>(f)),
+                             std::istreambuf_iterator<char>());
+            this->root = FileSystemSerializer::decode(json);
+            this->currentLocation.front() = root;
+            this->trimNames('"');
+        }
+    }
+    this->run();
+}
+
+void Filesystem::exit(string* filename)
+{
+    string json = FileSystemSerializer::encode(this->root);
+
+    if (filename){
+        ofstream f(*filename);
+        f << json;
+    }
+}
+
 
 void Filesystem::runCommand(string line)
 {

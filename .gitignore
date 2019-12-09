@@ -4,5 +4,4 @@
 *.out*
 *.gch*
 *.vcxproj.*
-*.json*
 *.txt
