@@ -25,7 +25,7 @@
         - run: sudo apt-get install cppcheck
         - run:
             name: cppcheck
-            command: cppcheck *.cpp *.h
+            command: cppcheck all *.cpp *.h
             
     valgrind:        
       machine:

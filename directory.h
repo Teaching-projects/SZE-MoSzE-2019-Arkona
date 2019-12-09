@@ -63,9 +63,6 @@ public:
 
         name.erase(std::remove(name.begin(), name.end(), character), name.end());
     }
-
-    void releaseContents();
-
 };
 
 #endif // DIRECTORY_H
