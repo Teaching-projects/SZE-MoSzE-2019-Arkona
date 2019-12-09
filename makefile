@@ -5,19 +5,19 @@ all: $(OBJS)
 	g++ -o terminal $(OBJS)
 
 main.o: main.cpp
-	g++ -c main.cpp $(CXXFLAGS)
+	g++ -g -Wall -c main.cpp $(CXXFLAGS)
   
 filesystem.o: filesystem.cpp
-	g++ -c filesystem.cpp $(CXXFLAGS)
+	g++ -g -Wall -c filesystem.cpp $(CXXFLAGS)
   
 file.o: file.cpp
-	g++ -c file.cpp $(CXXFLAGS)
+	g++ -g -Wall -c file.cpp $(CXXFLAGS)
   
 directory.o: directory.cpp
-	g++ -c directory.cpp $(CXXFLAGS)
+	g++ -g -Wall -c directory.cpp $(CXXFLAGS)
 	
 filesystemserializer.o: filesystemserializer.cpp
-	g++ -c filesystemserializer.cpp $(CXXFLAGS)
+	g++ -g -Wall -c filesystemserializer.cpp $(CXXFLAGS)
   
 clean:
 	rm -f *.o
