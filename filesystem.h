@@ -37,7 +37,6 @@ private:
 public:
     Filesystem(string* filename){
         startup(filename);
-        currentLocation.push_back(root);
         this->filename = filename;
     }
     ~Filesystem(){
