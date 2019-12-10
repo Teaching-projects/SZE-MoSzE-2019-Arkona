@@ -1,13 +1,13 @@
   version: 2.1
   jobs:
     build:
-      machine: 
-        image: ubuntu-1604:201903-01
+      docker: 
+        - image: arminous/mosze:test
       steps:
         - checkout 
         - run:
             name: "Build"
-            command: make -f makefile && ls
+            command: make -f makefile
         - persist_to_workspace:
             root: ~/project
             paths:
@@ -15,7 +15,26 @@
               - input
               - outputTest
               - filesystem.json
-              
+    
+    cppcheck:
+      docker:
+        - image: arminous/mosze:analysis
+      steps:
+        - checkout
+        - run:
+            name: cppcheck
+            command: cppcheck all *.cpp *.h
+            
+    valgrind:        
+      docker:
+        - image: arminous/mosze:analysis
+      steps:
+        - attach_workspace:
+            at: ~/project
+        - run:
+            name: valgrind
+            command: valgrind --leak-check=full ./terminal filesystem.json < input
+            
     output:
       machine:
         image: ubuntu-1604:201903-01
@@ -41,6 +60,10 @@
     build_print_diff:
       jobs:
         - build
+        - cppcheck
+        - valgrind:
+           requires:
+             - build
         - output:
            requires:
              - build
