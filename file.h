@@ -11,7 +11,7 @@ private:
     string name;
     string content;
 public:
-    File(string name,string content = ""):
+    File(string& name,string& content):
         name(name),content(content){}
 
     bool operator ==(File f){
@@ -19,7 +19,7 @@ public:
     }
     string getName() const {return name;}
 
-    string getJsonContent(string current);
+    string getJsonContent(const string& current);
 
     void eraseCharFromName(char character){
         name.erase(std::remove(name.begin(), name.end(), character), name.end());

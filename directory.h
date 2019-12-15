@@ -15,9 +15,9 @@ private:
     vector<File*> files;
     string name;
 
-    int canCreate(string name) const;
+    int canCreate(const string& name) const;
 public:
-    Directory(string name):
+    Directory(const string& name):
         name(name){}
     ~Directory(){
         for(auto& x: directories){
@@ -40,17 +40,17 @@ public:
 
     std::string getJsonContent(std::string);
 
-    void deleteDirectory(string d);
-    void deleteFile(string fileName);
+    void deleteDirectory(const string& d);
+    void deleteFile(const string& fileName);
     void rm();
     void treelist(int indent) const;
     void ls() const;
 
-    bool containsFile(string fileName) const;
-    bool containsDirectory(string dirName) const;
+    bool containsFile(const string& fileName) const;
+    bool containsDirectory(const string& dirName) const;
 
-    Directory* getDirectory(string dirname) const;
-    File* getFile(string fileName) const;
+    Directory* getDirectory(const string& dirname) const;
+    File* getFile(const string& fileName) const;
 
     void eraseCharFromName(char character){
         for(auto& x: files){
