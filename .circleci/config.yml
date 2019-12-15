@@ -23,7 +23,7 @@
         - checkout
         - run:
             name: cppcheck
-            command: cppcheck --enable=performance --error-exitcode=420 *.cpp *.h
+            command: cppcheck --language=c++ --enable=performance --error-exitcode=420 *.cpp *.h
             
     valgrind:        
       docker:
