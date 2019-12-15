@@ -23,6 +23,8 @@ private:
 
     void ls(stringstream& ss);
 
+
+    void echo(stringstream& ss);
     void trimNames(char character);
 
     std::vector<Directory *> parseRelativePath(string arg);

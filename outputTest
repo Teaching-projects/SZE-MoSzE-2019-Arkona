@@ -3,14 +3,17 @@ $ alma
 rootDirectory/
 Subjects/
 User@User:/
-$ Error: File with same name exists
-User@User:/
+$ User@User:/
+$ User@User:/
+$ User@User:/
+$ User@User:/
 $ User@User:/
 $ User@User:/
 $ User@User:/
 $ User@User:/korte/
-$ valami.txt
-tmpDir/
+$ alma
+valami.txt
+banan/
 User@User:/korte/
 $ User@User:/
 $ User@User:/
