@@ -1,8 +1,8 @@
   version: 2.1
   jobs:
     build:
-      machine: 
-        image: ubuntu-1604:201903-01
+      docker: 
+        - image: arminous/mosze:test
       steps:
         - checkout 
         - run:
@@ -17,23 +17,21 @@
               - filesystem.json
     
     cppcheck:
-      machine:
-        image: ubuntu-1604:201903-01
+      docker:
+        - image: arminous/mosze:analysis
       steps:
         - checkout
-        - run: sudo apt-get update
-        - run: sudo apt-get install cppcheck
         - run:
             name: cppcheck
-            command: cppcheck --enable=performance --error-exitcode=420 *.cpp *.h
+            command: cppcheck --language=c++ --enable=performance --error-exitcode=420 *.cpp *.h
             
     valgrind:        
-      machine:
-        image: ubuntu-1604:201903-01
+      docker:
+        - image: arminous/mosze:analysis
       steps:
         - attach_workspace:
             at: ~/project
-        - run: sudo apt-get install valgrind
+
         - run:
             name: valgrind
             command: valgrind --leak-check=full ./terminal filesystem.json < input
