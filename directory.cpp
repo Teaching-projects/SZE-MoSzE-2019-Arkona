@@ -36,7 +36,7 @@ void Directory::treelist(int indent) const
     }
 }
 
-int Directory::canCreate(string name) const
+int Directory::canCreate(const string& name) const
 {
     for (auto& dir : directories) {
         if (dir->getNameRaw() == name){
@@ -95,7 +95,7 @@ int Directory::touch(File *file)
 
 }
 
-void Directory::deleteDirectory(string d)
+void Directory::deleteDirectory(const string& d)
 {
     for(auto it = directories.begin(); it != directories.end();){
         if( (*it)->getNameRaw() == d ){
@@ -107,10 +107,10 @@ void Directory::deleteDirectory(string d)
     }
 }
 
-void Directory::deleteFile(string fileName)
+void Directory::deleteFile(const string& fileName)
 {
     for(auto it = files.begin(); it != files.end();){
-        if( **it == File(fileName)){
+        if( (**it).getName() == fileName){
             delete *it;
             files.erase(it);
         }else{
@@ -124,7 +124,7 @@ bool Directory::isEmpty() const
     return this->files.empty() && this->directories.empty();
 }
 
-Directory* Directory::getDirectory(string dirname) const
+Directory* Directory::getDirectory(const string& dirname) const
 {
     for(auto& dir: directories){
         if( dir->getNameRaw() == dirname)
@@ -133,7 +133,7 @@ Directory* Directory::getDirectory(string dirname) const
     return nullptr;
 }
 
-File* Directory::getFile(string fileName) const
+File* Directory::getFile(const string& fileName) const
 {
     for(auto& file: files){
         if( file->getName() == fileName)

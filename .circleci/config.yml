@@ -7,7 +7,7 @@
         - checkout 
         - run:
             name: "Build"
-            command: make -f makefile && ls
+            command: make -f makefile
         - persist_to_workspace:
             root: ~/project
             paths:
@@ -15,7 +15,29 @@
               - input
               - outputTest
               - filesystem.json
-              
+    
+    cppcheck:
+      machine:
+        image: ubuntu-1604:201903-01
+      steps:
+        - checkout
+        - run: sudo apt-get update
+        - run: sudo apt-get install cppcheck
+        - run:
+            name: cppcheck
+            command: cppcheck --enable=performance --error-exitcode=420 *.cpp *.h
+            
+    valgrind:        
+      machine:
+        image: ubuntu-1604:201903-01
+      steps:
+        - attach_workspace:
+            at: ~/project
+        - run: sudo apt-get install valgrind
+        - run:
+            name: valgrind
+            command: valgrind --leak-check=full ./terminal filesystem.json < input
+            
     output:
       machine:
         image: ubuntu-1604:201903-01
@@ -41,6 +63,10 @@
     build_print_diff:
       jobs:
         - build
+        - cppcheck
+        - valgrind:
+           requires:
+             - build
         - output:
            requires:
              - build

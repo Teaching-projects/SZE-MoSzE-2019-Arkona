@@ -34,10 +34,18 @@ void Filesystem::startup(string* filename)
         if(f.is_open()){
             string json((std::istreambuf_iterator<char>(f)),
                              std::istreambuf_iterator<char>());
-            this->root = FileSystemSerializer::decode(json);
-            this->currentLocation.front() = root;
+            Directory* result = FileSystemSerializer::decode(json);
+            if (!result){
+                root = new Directory("~");
+            }else{
+                root = result;
+            }
+            this->currentLocation.push_back(root);
             this->trimNames('"');
         }
+    }else {
+        root = new Directory("~");
+        currentLocation.push_back(root);
     }
     this->run();
 }
