@@ -4,6 +4,8 @@ touch /korte/alma
 mkdir /korte/banan
 touch /korte/valami.txt
 touch /Subjects/OOP/vizsga.txt
+echo Hello There > ObiWan.txt
+rm ObiWan.txt
 cd korte
 ls
 cd ..

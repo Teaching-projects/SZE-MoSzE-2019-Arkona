@@ -86,6 +86,8 @@ void Filesystem::runCommand(string line)
     }
     else if (command == "rm"){
         this->rm(ss);
+    }else if (command == "echo"){
+        this->echo(ss);
     }
     else {
         cout << "Wrong command!"<<endl;
@@ -254,6 +256,40 @@ void Filesystem::deleteDirFor(string name, Directory* location)
         dirToDelete->rm();
         location->deleteDirectory(dirToDelete->getNameRaw());
     }
+}
+
+void Filesystem::echo(stringstream &ss)
+{
+    string content = "";
+    string tmp;
+
+    string ssString = ss.str();
+
+    if (ssString.find(">") == std::string::npos)
+    {
+       cout << "Wrong format: echo content > filename\n";
+       return;
+    }
+
+    while(ss >> tmp){
+        if (tmp == ">") {break;}
+        content += tmp;
+    }
+
+    string path;
+    ss >> path;
+
+    string name = path.substr(path.find_last_of("/") + 1);
+    path.erase(path.length() - name.size());
+
+    Directory* relativeDir = this->getRelativeDir(path);
+
+    if (relativeDir == nullptr){
+        return;
+    }
+
+    int result = relativeDir->touch(name,content);
+    evaluateResult(result);
 }
 
 void Filesystem::rm(stringstream &ss)
