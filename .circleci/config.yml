@@ -25,7 +25,7 @@
         - run: sudo apt-get install cppcheck
         - run:
             name: cppcheck
-            command: cppcheck all *.cpp *.h
+            command: cppcheck --enable=performance --error-exitcode=420 *.cpp *.h
             
     valgrind:        
       machine:
