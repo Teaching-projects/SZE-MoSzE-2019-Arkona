@@ -23,7 +23,7 @@
         - checkout
         - run:
             name: cppcheck
-            command: cppcheck all *.cpp *.h
+            command: cppcheck --enable=performance --error-exitcode=420 *.cpp *.h
             
     valgrind:        
       docker:
@@ -31,6 +31,7 @@
       steps:
         - attach_workspace:
             at: ~/project
+
         - run:
             name: valgrind
             command: valgrind --leak-check=full ./terminal filesystem.json < input

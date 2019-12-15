@@ -9,13 +9,11 @@ class Filesystem
 {
 private:
     const string user = "User@User:";
-    Directory* root = new Directory("~");
+    Directory* root;
     string* filename;
 
     vector<Directory*> currentLocation;
 
-    vector<Directory*> directories;
-    vector<File*> files;
     void printUserandLocation();
     void runCommand(string line);
     void mkdir(stringstream& ss);
@@ -23,6 +21,8 @@ private:
 
     void ls(stringstream& ss);
 
+
+    void echo(stringstream& ss);
     void trimNames(char character);
 
     std::vector<Directory *> parseRelativePath(string arg);
@@ -38,12 +38,12 @@ private:
     void exit(string* filename);
 public:
     Filesystem(string* filename){
-        currentLocation.push_back(root);
-        this->filename = filename;
         startup(filename);
+        this->filename = filename;
     }
     ~Filesystem(){
         this->exit(this->filename);
+        delete root;
     }
     void run();
 };

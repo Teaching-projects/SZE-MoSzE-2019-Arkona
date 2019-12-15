@@ -1,6 +1,6 @@
 #include "file.h"
 
-std::string File::getJsonContent(string current)
+std::string File::getJsonContent(const string& current)
 {
 
     return current + "{ \"name\" : \""
