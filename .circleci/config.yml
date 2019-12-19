@@ -2,7 +2,7 @@
   jobs:
     build:
       docker: 
-        - image: arminous/mosze:test
+        - image: arminous/mosze:build
       steps:
         - checkout 
         - run:
@@ -35,6 +35,15 @@
         - run:
             name: valgrind
             command: valgrind --leak-check=full ./terminal filesystem.json < input
+            
+    doxygen:
+      docker:
+        - image: arminous/mosze:doxygen
+      steps:
+        - checkout
+        - run: 
+            name: doxygen
+            command: doxygen Doxyfile
             
     output:
       machine:
