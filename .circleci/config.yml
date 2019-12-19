@@ -71,6 +71,7 @@
       jobs:
         - build
         - cppcheck
+        - doxygen
         - valgrind:
            requires:
              - build
