@@ -52,7 +52,7 @@
         - run: ls -la
         - checkout
         - run: cmake CMakeLists.txt
-        - run: make
+        - run: make executeTests
         - run: ./executeTests
     diff:
       machine:
