@@ -50,7 +50,7 @@
         - image: scony/googletest:latest
       steps:
         - checkout
-        - run: cd test && CMakeLists.txt && make && ./executeTests
+        - run: cd test && cmake CMakeLists.txt && make && ./executeTests
     diff:
       machine:
         image: ubuntu-1604:201903-01
