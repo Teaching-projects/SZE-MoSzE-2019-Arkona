@@ -52,8 +52,7 @@
         - run: ls -la
         - checkout
         - run: cmake CMakeLists.txt
-        - run: make executeTests
-        - run: ./executeTests
+        - run: ls -la
     diff:
       machine:
         image: ubuntu-1604:201903-01
