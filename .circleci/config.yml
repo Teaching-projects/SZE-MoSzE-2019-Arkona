@@ -45,7 +45,15 @@
         - run:
             name: Output
             command: ./terminal filesystem.json < input
-
+    test:
+      docker:
+        - image: scony/googletest:latest
+      steps:
+        - run: ls -la
+        - checkout
+        - run: cmake CMakeLists.txt
+        - run: make
+        - run: ./executeTests
     diff:
       machine:
         image: ubuntu-1604:201903-01
@@ -61,6 +69,7 @@
     build_print_diff:
       jobs:
         - build
+        - test
         - cppcheck
         - valgrind:
            requires:
