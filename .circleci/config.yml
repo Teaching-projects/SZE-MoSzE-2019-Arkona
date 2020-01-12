@@ -50,7 +50,7 @@
         - image: scony/googletest:latest
       steps:
         - checkout
-        - cd test
+        - run: cd test
         - run: cmake CMakeLists.txt
         - run: make
         - run: ./executeTests
