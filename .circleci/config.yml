@@ -49,10 +49,11 @@
       docker:
         - image: scony/googletest:latest
       steps:
-        - run: ls -la
         - checkout
+        - cd test
         - run: cmake CMakeLists.txt
-        - run: ls -la
+        - run: make
+        - run: ./executeTests
     diff:
       machine:
         image: ubuntu-1604:201903-01
