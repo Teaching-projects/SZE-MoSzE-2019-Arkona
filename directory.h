@@ -32,22 +32,63 @@ public:
 
     int mkdir(string dirName);
     int mkdir(Directory* dir);
+    
+    /**
+    * @brief The mkdir() shall create a new directory.
+    */
 
     int touch(string fileName, string content);
     int touch(File* file);
+    
+    /**
+    * @brief List of directories/files.
+    */
 
     bool isEmpty() const;
 
     std::string getJsonContent(std::string);
 
     void deleteDirectory(const string& d);
+    
+    /**
+    * @brief Command to delete a directory.
+    */
+    
     void deleteFile(const string& fileName);
+        
+    /**
+    * @brief Command to delete a file.
+    */
+    
     void rm();
+        
+    /**
+    * @brief Command to delete a file or directory.
+    */
+    
     void treelist(int indent) const;
+        
+    /**
+    * @brief List contents of directories and files in a treelike format.
+    */
+    
     void ls() const;
-
+        
+    /**
+    * @brief Command that lists directory contents of files and other directories.
+    */
+    
     bool containsFile(const string& fileName) const;
+        
+    /**
+    * @brief Checcks a directory if it contains files.
+    */
+    
     bool containsDirectory(const string& dirName) const;
+        
+    /**
+    * @breif Checks a directory if it contains directories.
+    */
 
     Directory* getDirectory(const string& dirname) const;
     File* getFile(const string& fileName) const;
