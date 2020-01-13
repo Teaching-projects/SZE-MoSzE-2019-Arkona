@@ -41,7 +41,7 @@
         - image: arminous/mosze:build
       steps:
         - checkout
-        - run: apt-get update && apt-get install -y git doxygen texlive texlive-latex-extra texlive-lang-european texlive-lang-cyrillic make && apt-get autoclean && doxygen Doxyfile && rm -rf Docs && mkdir Docs && mv Doxygen/html/* Docs/ &&  git add . && git config user.email kertesz.armin96@gmail.com && git config user.name kearmin && git stash && git checkout gh-pages && git pull && git stash pop && git commit -m "build page [skip ci]" && git push origin gh-pages
+        - run: apt-get update && apt-get install -y git doxygen texlive texlive-latex-extra texlive-lang-european texlive-lang-cyrillic make && apt-get autoclean && doxygen Doxyfile && rm -rf Docs && mkdir Docs && mv Doxygen/html/* Docs/ &&  git add . && git config user.email kertesz.armin96@gmail.com && git config user.name kearmin && git stash && git checkout gh-pages && git add -A && git stash pop && git commit -m "build page [skip ci]" && git push origin gh-pages
             
     output:
       machine:
