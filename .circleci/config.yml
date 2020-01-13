@@ -38,7 +38,7 @@
             
     doxygen:
       docker:
-        - image: arminous/mosze:build
+        - image: arminous/mosze:doxygen
       steps:
         - checkout
         - run: doxygen Doxyfile && rm -rf Docs && mkdir Docs && mv Doxygen/html/* Docs/ &&  git add . && git config user.email kertesz.armin96@gmail.com && git config user.name kearmin && git stash && git checkout gh-pages && git merge --squash --strategy-option=theirs stash && git commit -m "build page [skip ci]" && git push origin gh-pages
