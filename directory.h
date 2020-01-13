@@ -10,7 +10,7 @@ enum ObjectCreationResult{Success, DirectoryExists, FileExists};
 
 /**
  *
- * 	Class with name that stores other Directories and Files
+ * 	@brief Class with name that stores other Directories and Files
  *
  */
 

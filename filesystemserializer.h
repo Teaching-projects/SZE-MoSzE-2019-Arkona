@@ -4,6 +4,12 @@
 #include <string>
 class Directory;
 
+/**
+ *
+ * @brief Used to conver Json to Directory* and vica versa
+ *
+ */
+
 class FileSystemSerializer
 {
 private:
