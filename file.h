@@ -25,21 +25,19 @@ public:
     }
     string getName() const {return name;}
 
-    string getJsonContent(const string& current);
-        
     /**
     *   @brief returns content in json format
+    */
+
+    string getJsonContent(const string& current);
+
+    /**
+    * @brief deletes characters from name
     */
     
     void eraseCharFromName(char character){
         name.erase(std::remove(name.begin(), name.end(), character), name.end());
     }
-
-    /**
-    * @brief deletes characters from name
-    */
-
-
 };
 
 #endif // FILE_H
