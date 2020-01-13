@@ -5,6 +5,13 @@
 #include <string>
 #include "filesystemserializer.h"
 
+/**
+ *
+ * 	@brief emulates Linux like file system, stores root Directory, starts with run method
+ *
+ *
+ */
+
 class Filesystem
 {
 private:
@@ -14,16 +21,22 @@ private:
 
     vector<Directory*> currentLocation;
 
+    /**
+     *
+     * @brief stores current path, last element is always current directory
+     *
+     */
+
     void printUserandLocation();
         
     /**
-    * 
+    *  @brief print user member and last element of currentDirectory in Unix like format
     */
     
     void runCommand(string line);
         
     /**
-    * 
+    *  @brief evaluates command line argument
     */
     
     void mkdir(stringstream& ss);
@@ -77,20 +90,22 @@ private:
     void deleteDirFor(string name, Directory *location);
             
     /**
-    * 
+    *  @brief attempts to delete Directory with given name at location
     */
     
 
     void startup(string* filename);
             
     /**
-    * 
+    *
+    * @brief loads last state from json or creates a new one
+    *
     */
     
     void exit(string* filename);
             
     /**
-    * @brief To exit the sehll where it is currently running.
+    * @brief To exit the shell where it is currently running.
     */
     
 public:

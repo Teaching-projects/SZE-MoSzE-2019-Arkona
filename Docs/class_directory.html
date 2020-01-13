@@ -71,6 +71,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0b019225671a50ead8dbb22b97667676"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_directory.html#a0b019225671a50ead8dbb22b97667676">Directory</a> (const string &amp;name)</td></tr>
+<tr class="memdesc:a0b019225671a50ead8dbb22b97667676"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check current state and returns ObjectCreationResult.  <a href="#a0b019225671a50ead8dbb22b97667676">More...</a><br /></td></tr>
 <tr class="separator:a0b019225671a50ead8dbb22b97667676"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affbde8714685c61601421097d621341d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_directory.html#affbde8714685c61601421097d621341d">~Directory</a> ()</td></tr>
 <tr class="separator:affbde8714685c61601421097d621341d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,6 +94,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad4b9f8d48a33526ac1c61dbce3753f1d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_directory.html#ad4b9f8d48a33526ac1c61dbce3753f1d">getJsonContent</a> (std::string)</td></tr>
 <tr class="separator:ad4b9f8d48a33526ac1c61dbce3753f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d233286b4964b8261543fa823e66f9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_directory.html#a8d233286b4964b8261543fa823e66f9e">deleteDirectory</a> (const string &amp;d)</td></tr>
+<tr class="memdesc:a8d233286b4964b8261543fa823e66f9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns content in json format.  <a href="#a8d233286b4964b8261543fa823e66f9e">More...</a><br /></td></tr>
 <tr class="separator:a8d233286b4964b8261543fa823e66f9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5d2847c135eff94ce4fedd8099de18a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_directory.html#ac5d2847c135eff94ce4fedd8099de18a">deleteFile</a> (const string &amp;fileName)</td></tr>
 <tr class="memdesc:ac5d2847c135eff94ce4fedd8099de18a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command to delete a directory.  <a href="#ac5d2847c135eff94ce4fedd8099de18a">More...</a><br /></td></tr>
@@ -113,13 +115,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae84d7cdbbea5138b808dca098c28c820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checcks a directory if it contains files.  <a href="#ae84d7cdbbea5138b808dca098c28c820">More...</a><br /></td></tr>
 <tr class="separator:ae84d7cdbbea5138b808dca098c28c820"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1deb0931a93badb556a4faed75cbc033"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_directory.html">Directory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_directory.html#a1deb0931a93badb556a4faed75cbc033">getDirectory</a> (const string &amp;dirname) const</td></tr>
+<tr class="memdesc:a1deb0931a93badb556a4faed75cbc033"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks a directory if it contains directories.  <a href="#a1deb0931a93badb556a4faed75cbc033">More...</a><br /></td></tr>
 <tr class="separator:a1deb0931a93badb556a4faed75cbc033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a7c1f0d955b7c3a73f6701db1fdf72b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_file.html">File</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_directory.html#a3a7c1f0d955b7c3a73f6701db1fdf72b">getFile</a> (const string &amp;fileName) const</td></tr>
 <tr class="separator:a3a7c1f0d955b7c3a73f6701db1fdf72b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8718bf810510f06e1932a8083ae09e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_directory.html#ad8718bf810510f06e1932a8083ae09e2">eraseCharFromName</a> (char character)</td></tr>
+<tr class="memdesc:ad8718bf810510f06e1932a8083ae09e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns (File/Directory) or null  <a href="#ad8718bf810510f06e1932a8083ae09e2">More...</a><br /></td></tr>
 <tr class="separator:ad8718bf810510f06e1932a8083ae09e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class with name that stores other Directories and Files </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0b019225671a50ead8dbb22b97667676"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b019225671a50ead8dbb22b97667676">&#9670;&nbsp;</a></span>Directory()</h2>
 
@@ -143,6 +149,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Check current state and returns ObjectCreationResult. </p>
 
 </div>
 </div>
@@ -228,6 +236,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>returns content in json format. </p>
+
 </div>
 </div>
 <a id="ac5d2847c135eff94ce4fedd8099de18a"></a>
@@ -274,6 +284,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>returns (File/Directory) or null </p>
+
 </div>
 </div>
 <a id="a1deb0931a93badb556a4faed75cbc033"></a>
@@ -291,6 +303,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Checks a directory if it contains directories. </p>
+
 <p>Checks a directory if it contains directories. </p>
 
 </div>

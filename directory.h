@@ -8,6 +8,12 @@ using namespace std;
 
 enum ObjectCreationResult{Success, DirectoryExists, FileExists};
 
+/**
+ *
+ * 	Class with name that stores other Directories and Files
+ *
+ */
+
 class Directory
 {
 private:
@@ -16,6 +22,11 @@ private:
     string name;
 
     int canCreate(const string& name) const;
+
+    /**
+     * @brief Check current state and returns ObjectCreationResult
+     */
+
 public:
     Directory(const string& name):
         name(name){}
@@ -47,6 +58,10 @@ public:
     bool isEmpty() const;
 
     std::string getJsonContent(std::string);
+
+    /**
+    * @brief returns content in json format.
+    */
 
     void deleteDirectory(const string& d);
     
@@ -87,11 +102,15 @@ public:
     bool containsDirectory(const string& dirName) const;
         
     /**
-    * @breif Checks a directory if it contains directories.
+    * @brief Checks a directory if it contains directories.
     */
 
     Directory* getDirectory(const string& dirname) const;
     File* getFile(const string& fileName) const;
+
+    /**
+     *  @brief returns (File/Directory) or null
+     */
 
     void eraseCharFromName(char character){
         for(auto& x: files){
@@ -104,6 +123,11 @@ public:
 
         name.erase(std::remove(name.begin(), name.end(), character), name.end());
     }
+
+    /**
+    * @brief Deletes all characters in names recursively
+    */
+
 };
 
 #endif // DIRECTORY_H

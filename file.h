@@ -5,6 +5,12 @@
 
 using namespace  std;
 
+/**
+ *
+ * 	@brief Class to strore a file with name and content
+ *
+ */
+
 class File
 {
 private:
@@ -26,12 +32,18 @@ public:
     string getJsonContent(const string& current);
         
     /**
-    * Command to print JSON.
+    *   @brief returns content in json format
     */
     
     void eraseCharFromName(char character){
         name.erase(std::remove(name.begin(), name.end(), character), name.end());
     }
+
+    /**
+    * @brief deletes characters from name
+    */
+
+
 };
 
 #endif // FILE_H

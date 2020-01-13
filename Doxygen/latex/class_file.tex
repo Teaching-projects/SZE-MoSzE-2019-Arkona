@@ -2,6 +2,11 @@
 \label{class_file}\index{File@{File}}
 
 
+Class to strore a file with name and content.  
+
+
+
+
 {\ttfamily \#include $<$file.\+h$>$}
 
 \subsection*{Public Member Functions}
@@ -16,8 +21,11 @@ string \hyperlink{class_file_a4b6032847dfd076db8ed44a532387f07}{get\+Name} () co
 string \hyperlink{class_file_afaee512326a13dc99d6b8d08522eabe8}{get\+Json\+Content} (const string \&current)
 \item 
 void \hyperlink{class_file_aef2ef41308caf6124548ed6421b91188}{erase\+Char\+From\+Name} (char character)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em returns content in json format \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Class to strore a file with name and content. 
 
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_file_a87347ffc1d8cf9544036837353e37248}\label{class_file_a87347ffc1d8cf9544036837353e37248}} 
@@ -35,13 +43,17 @@ void \hyperlink{class_file_aef2ef41308caf6124548ed6421b91188}{erase\+Char\+From\
 \subsubsection{\texorpdfstring{erase\+Char\+From\+Name()}{eraseCharFromName()}}
 {\footnotesize\ttfamily void File\+::erase\+Char\+From\+Name (\begin{DoxyParamCaption}\item[{char}]{character }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Command to print J\+S\+ON. \mbox{\Hypertarget{class_file_afaee512326a13dc99d6b8d08522eabe8}\label{class_file_afaee512326a13dc99d6b8d08522eabe8}} 
+
+
+returns content in json format 
+
+\mbox{\Hypertarget{class_file_afaee512326a13dc99d6b8d08522eabe8}\label{class_file_afaee512326a13dc99d6b8d08522eabe8}} 
 \index{File@{File}!get\+Json\+Content@{get\+Json\+Content}}
 \index{get\+Json\+Content@{get\+Json\+Content}!File@{File}}
 \subsubsection{\texorpdfstring{get\+Json\+Content()}{getJsonContent()}}
 {\footnotesize\ttfamily std\+::string File\+::get\+Json\+Content (\begin{DoxyParamCaption}\item[{const string \&}]{current }\end{DoxyParamCaption})}
 
-Command-\/line test program. \mbox{\Hypertarget{class_file_a4b6032847dfd076db8ed44a532387f07}\label{class_file_a4b6032847dfd076db8ed44a532387f07}} 
+\mbox{\Hypertarget{class_file_a4b6032847dfd076db8ed44a532387f07}\label{class_file_a4b6032847dfd076db8ed44a532387f07}} 
 \index{File@{File}!get\+Name@{get\+Name}}
 \index{get\+Name@{get\+Name}!File@{File}}
 \subsubsection{\texorpdfstring{get\+Name()}{getName()}}
