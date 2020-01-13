@@ -38,7 +38,7 @@
             
     doxygen:
       docker:
-        - image:
+        - image: arminous/mosze:build
       steps:
         - checkout
         - run: apt-get update && apt-get install -y git doxygen texlive texlive-latex-extra texlive-lang-european texlive-lang-cyrillic make && apt-get autoclean && doxygen Doxyfile && mv Doxygen/html/* Docs/ &&  git add Docs/ && git commit -m "build page [skip ci]" && git push origin master
