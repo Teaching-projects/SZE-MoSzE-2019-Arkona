@@ -18,9 +18,17 @@ public:
         return f.name == this->name;
     }
     string getName() const {return name;}
-
+        
+    /**
+    * Command-line test program.
+    */
+    
     string getJsonContent(const string& current);
-
+        
+    /**
+    * Command to print JSON.
+    */
+    
     void eraseCharFromName(char character){
         name.erase(std::remove(name.begin(), name.end(), character), name.end());
     }
