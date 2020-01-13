@@ -41,7 +41,6 @@ TEST(DirectoryTest, FileContent){
 
 	d->touch(*name,*name);
 	ASSERT_NE(d->getFile(*name),nullptr);
-	ASSERT_TRUE(d->getFile(*name));
 
 	delete name;
 	delete d;
@@ -85,12 +84,12 @@ TEST(FilesystemSerializerTest, decodeTest){
 	delete test;
 }
 
-TEST(FilesystemSerializerTest, endcodeTest){
+TEST(FilesystemSerializerTest, encodeTest){
 	std::string* root = new std::string("~");
 	std::string* test = new std::string("test");
 	std::string* json = new std::string(" {  \"name\" : \"~\" ,  \"files\" : [ ],  \"directories\" : [  {  \"name\" : \"test\" ,  \"files\" : [ ],  \"directories\" : [  ]  }  ]  } ");
 	Directory* d = new Directory(*root);
-	d->mkdir("test");
+	d->mkdir(*test);
 	
 	ASSERT_EQ(FileSystemSerializer::encode(d), *json);
 	delete root;
