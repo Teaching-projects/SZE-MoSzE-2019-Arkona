@@ -19,94 +19,105 @@ private:
     Directory* root;
     string* filename;
 
-    vector<Directory*> currentLocation;
-
     /**
      *
      * @brief stores current path, last element is always current directory
      *
      */
 
-    void printUserandLocation();
-        
+    vector<Directory*> currentLocation;
+
     /**
     *  @brief print user member and last element of currentDirectory in Unix like format
     */
-    
-    void runCommand(string line);
-        
+
+    void printUserandLocation();
+          
     /**
     *  @brief evaluates command line argument
     */
+
+    void runCommand(string line);
     
-    void mkdir(stringstream& ss);
-        
     /**
     * @brief The mkdir() shall create a new directory.
     */
-    
-    void touch(stringstream& ss);
-        
+
+    void mkdir(stringstream& ss);
+
     /**
     * @brief List of directories/files.
     */
-    
-    void ls(stringstream& ss);
+
+    void touch(stringstream& ss);
         
     /**
     * @brief Command that lists directory contents of files and other directories.
     */
     
+    void ls(stringstream& ss);
+
+    /**
+    * @brief print contents of argument to output
+    */
 
     void echo(stringstream& ss);
             
     /**
-    * @brief Moves the elements from one folder to another.
-    */
+     * @brief recursiveli removes character from all files and directories
+     *  @param used when parsing json
+     */
     
     void trimNames(char character);
 
+    /**
+     * @brief returns relative path from string
+     */
+
     std::vector<Directory *> parseRelativePath(string arg);
+
+    /**
+     * @brief return single directory from string
+     */
     Directory* getRelativeDir(string path);
 
-    void cd(stringstream& ss);
-            
     /**
-    * @brief Moves into a folder in the tree.
-    */
-    
-    void cdRelativePath(string arg);
+     * @brief used to navigate between folders
+     */
+    void cd(stringstream& ss);
             
     /**
     * @brief Relative path is defined as path related tothe present working directory.
     */
     
-    void rm(stringstream& ss);
+    void cdRelativePath(string arg);
             
     /**
-    * @brief Command to delete a file or directory.
+    * @brief Command to delete a file or directory. Can get -rf command
+    *
     */
     
-    void deleteDirFor(string name, Directory *location);
+    void rm(stringstream& ss);
             
     /**
     *  @brief attempts to delete Directory with given name at location
     */
     
-
-    void startup(string* filename);
+    void deleteDirFor(string name, Directory *location);
             
     /**
     *
     * @brief loads last state from json or creates a new one
     *
     */
-    
-    void exit(string* filename);
+
+    void startup(string* filename);
             
     /**
     * @brief To exit the shell where it is currently running.
     */
+    
+    void exit(string* filename);
     
 public:
     Filesystem(string* filename){

@@ -24,15 +24,15 @@ public:
         return f.name == this->name;
     }
     string getName() const {return name;}
-        
-    /**
-    * Command-line test program.
-    */
-    
-    string getJsonContent(const string& current);
-        
+
     /**
     *   @brief returns content in json format
+    */
+
+    string getJsonContent(const string& current);
+
+    /**
+    * @brief deletes characters from name
     */
     
     void eraseCharFromName(char character){

@@ -21,11 +21,12 @@ private:
     vector<File*> files;
     string name;
 
-    int canCreate(const string& name) const;
 
     /**
      * @brief Check current state and returns ObjectCreationResult
      */
+
+    int canCreate(const string& name) const;
 
 public:
     Directory(const string& name):
@@ -41,6 +42,10 @@ public:
     string getName() const {return name + "/";}
     string getNameRaw() const {return name;}
 
+    /**
+    * @brief The mkdir() shall create a new directory.
+    */
+
     int mkdir(string dirName);
     int mkdir(Directory* dir);
     
@@ -48,69 +53,79 @@ public:
     * @brief The mkdir() shall create a new directory.
     */
 
+    /**
+    * @brief touch creates file in directory
+    */
+
     int touch(string fileName, string content);
     int touch(File* file);
     
-    /**
-    * @brief List of directories/files.
-    */
 
     bool isEmpty() const;
-
-    std::string getJsonContent(std::string);
 
     /**
     * @brief returns content in json format.
     */
 
-    void deleteDirectory(const string& d);
-    
+    std::string getJsonContent(std::string);
+
     /**
     * @brief Command to delete a directory.
     */
+
+    void deleteDirectory(const string& d);
     
-    void deleteFile(const string& fileName);
-        
     /**
     * @brief Command to delete a file.
     */
     
-    void rm();
-        
+    void deleteFile(const string& fileName);
+
     /**
     * @brief Command to delete a file or directory.
+    */
+
+    void rm();
+
+    /**
+    * @brief List contents of directories and files in a treelike format.
     */
     
     void treelist(int indent) const;
         
     /**
-    * @brief List contents of directories and files in a treelike format.
+    * @brief Command that lists directory contents of files and other directories.
     */
     
     void ls() const;
         
     /**
-    * @brief Command that lists directory contents of files and other directories.
+    * @brief Checcks a directory if it contains files.
     */
     
     bool containsFile(const string& fileName) const;
         
     /**
-    * @brief Checcks a directory if it contains files.
+    * @brief Checks a directory if it contains directories.
     */
     
     bool containsDirectory(const string& dirName) const;
         
     /**
-    * @brief Checks a directory if it contains directories.
-    */
+     *  @brief returns Directory with given name or null
+     */
 
     Directory* getDirectory(const string& dirname) const;
+
+    /**
+     *  @brief returns File with given name or null
+     */
+
     File* getFile(const string& fileName) const;
 
     /**
-     *  @brief returns (File/Directory) or null
-     */
+    * @brief Deletes all characters in names recursively
+    */
 
     void eraseCharFromName(char character){
         for(auto& x: files){
