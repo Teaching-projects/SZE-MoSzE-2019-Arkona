@@ -1,14 +1,14 @@
-mkdir alma
-cd alma
-touch hello
-touch hello2
+ls
 mkdir korte
-cd
-touch /alma/korte
-mkdir /alma/banan
-cd alma
+touch /korte/alma
+mkdir /korte/banan
+touch /korte/valami.txt
+touch /Subjects/OOP/vizsga.txt
+echo Hello There > ObiWan.txt
+rm ObiWan.txt
+cd korte
 ls
 cd ..
-rm -rf alma
+rm -rf korte
 ls
 exit

@@ -1,0 +1,11 @@
+FROM debian
+
+RUN apt-get update && apt-get install -y\
+	doxygen\
+	texlive\
+	texlive-latex-extra\
+	texlive-lang-european\
+	texlive-lang-cyrillic\
+	git\
+	make\
+	&& apt-get autoclean

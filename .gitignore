@@ -4,5 +4,6 @@
 *.out*
 *.gch*
 *.vcxproj.*
-*.json*
 *.txt
+
+!CMakeLists.txt

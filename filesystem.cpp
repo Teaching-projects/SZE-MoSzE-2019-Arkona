@@ -1,4 +1,5 @@
 #include "filesystem.h"
+#include <fstream>
 
 void Filesystem::printUserandLocation()
 {
@@ -19,6 +20,46 @@ void Filesystem::run()
         runCommand(input);
     }
 }
+
+
+void Filesystem::trimNames(char character)
+{
+    root->eraseCharFromName(character);
+}
+
+void Filesystem::startup(string* filename)
+{
+    if (filename){
+        ifstream f(*filename);
+        if(f.is_open()){
+            string json((std::istreambuf_iterator<char>(f)),
+                             std::istreambuf_iterator<char>());
+            Directory* result = FileSystemSerializer::decode(json);
+            if (!result){
+                root = new Directory("~");
+            }else{
+                root = result;
+            }
+            this->currentLocation.push_back(root);
+            this->trimNames('"');
+        }
+    }else {
+        root = new Directory("~");
+        currentLocation.push_back(root);
+    }
+    this->run();
+}
+
+void Filesystem::exit(string* filename)
+{
+    string json = FileSystemSerializer::encode(this->root);
+
+    if (filename){
+        ofstream f(*filename);
+        f << json;
+    }
+}
+
 
 void Filesystem::runCommand(string line)
 {
@@ -47,6 +88,8 @@ void Filesystem::runCommand(string line)
     }
     else if (command == "rm"){
         this->rm(ss);
+    }else if (command == "echo"){
+        this->echo(ss);
     }
     else {
         cout << "Wrong command!"<<endl;
@@ -240,6 +283,40 @@ void Filesystem::deleteDirFor(string name, Directory* location)
         dirToDelete->rm();
         location->deleteDirectory(dirToDelete->getNameRaw());
     }
+}
+
+void Filesystem::echo(stringstream &ss)
+{
+    string content = "";
+    string tmp;
+
+    string ssString = ss.str();
+
+    if (ssString.find(">") == std::string::npos)
+    {
+       cout << "Wrong format: echo content > filename\n";
+       return;
+    }
+
+    while(ss >> tmp){
+        if (tmp == ">") {break;}
+        content += tmp;
+    }
+
+    string path;
+    ss >> path;
+
+    string name = path.substr(path.find_last_of("/") + 1);
+    path.erase(path.length() - name.size());
+
+    Directory* relativeDir = this->getRelativeDir(path);
+
+    if (relativeDir == nullptr){
+        return;
+    }
+
+    int result = relativeDir->touch(name,content);
+    evaluateResult(result);
 }
 
 void Filesystem::rm(stringstream &ss)
