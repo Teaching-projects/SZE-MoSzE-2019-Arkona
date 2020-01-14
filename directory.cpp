@@ -95,7 +95,7 @@ int Directory::touch(File *file)
 
 }
 
-void Directory::removeReference(string name)
+void Directory::removeReference(const string& name)
 {
     for(auto it = files.begin(); it != files.end();){
         if( (**it).getName() == name){

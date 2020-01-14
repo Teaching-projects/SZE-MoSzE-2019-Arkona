@@ -73,6 +73,10 @@ public:
     * @brief touch creates file in directory
     */
 
+    /**
+    * @brief touch creates file in directory
+    */
+
     int touch(string fileName, string content);
     int touch(File* file);
     
@@ -89,7 +93,7 @@ public:
      * @brief removes object but doesnt delete it
      */
 
-    void removeReference(string name);
+    void removeReference(const string& name);
 
     /**
     * @brief Command to delete a directory.
