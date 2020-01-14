@@ -69,6 +69,10 @@ public:
     * @brief touch creates file in directory
     */
 
+    /**
+    * @brief touch creates file in directory
+    */
+
     int touch(string fileName, string content);
     int touch(File* file);
     
@@ -80,6 +84,12 @@ public:
     */
 
     std::string getJsonContent(std::string);
+
+    /**
+     * @brief removes object but doesnt delete it
+     */
+
+    void removeReference(string name);
 
     /**
     * @brief Command to delete a directory.

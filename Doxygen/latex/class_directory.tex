@@ -32,6 +32,8 @@ bool \hyperlink{class_directory_a5d3efa22fedc9f37963b2217e60beb3c}{is\+Empty} ()
 \item 
 std\+::string \hyperlink{class_directory_ad4b9f8d48a33526ac1c61dbce3753f1d}{get\+Json\+Content} (std\+::string)
 \begin{DoxyCompactList}\small\item\em returns content in json format. \end{DoxyCompactList}\item 
+void \hyperlink{class_directory_a87a23d283d18c5c2a521e2f2dbccb390}{remove\+Reference} (string name)
+\begin{DoxyCompactList}\small\item\em removes object but doesnt delete it \end{DoxyCompactList}\item 
 void \hyperlink{class_directory_a8d233286b4964b8261543fa823e66f9e}{delete\+Directory} (const string \&d)
 \begin{DoxyCompactList}\small\item\em Command to delete a directory. \end{DoxyCompactList}\item 
 void \hyperlink{class_directory_ac5d2847c135eff94ce4fedd8099de18a}{delete\+File} (const string \&file\+Name)
@@ -196,6 +198,16 @@ The \hyperlink{class_directory_adfec0eb4ee88844c1483363b14543e92}{mkdir()} shall
 \index{mkdir@{mkdir}!Directory@{Directory}}
 \subsubsection{\texorpdfstring{mkdir()}{mkdir()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily int Directory\+::mkdir (\begin{DoxyParamCaption}\item[{\hyperlink{class_directory}{Directory} $\ast$}]{dir }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_directory_a87a23d283d18c5c2a521e2f2dbccb390}\label{class_directory_a87a23d283d18c5c2a521e2f2dbccb390}} 
+\index{Directory@{Directory}!remove\+Reference@{remove\+Reference}}
+\index{remove\+Reference@{remove\+Reference}!Directory@{Directory}}
+\subsubsection{\texorpdfstring{remove\+Reference()}{removeReference()}}
+{\footnotesize\ttfamily void Directory\+::remove\+Reference (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+
+
+removes object but doesnt delete it 
 
 \mbox{\Hypertarget{class_directory_ad764e9b4d0568c0acf788a15e0621f1a}\label{class_directory_ad764e9b4d0568c0acf788a15e0621f1a}} 
 \index{Directory@{Directory}!rm@{rm}}

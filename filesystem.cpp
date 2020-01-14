@@ -135,7 +135,12 @@ void Filesystem::mv(stringstream &ss)
     string name = pathFrom.substr(pathFrom.find_last_of("/") + 1);
     pathFrom.erase(pathFrom.length() - name.size());
 
-    Directory* relativeDirFrom = this->getRelativeDir(pathFrom);
+    //Directory* relativeDirFrom = this->getRelativeDir(pathFrom);
+
+    auto relativeDirFrom = this->parseRelativePath(pathFrom);
+    if (relativeDirFrom.back()==nullptr){
+        relativeDirFrom.push_back(root);
+    }
 
     string pathTo;
     ss >> pathTo;
@@ -143,12 +148,17 @@ void Filesystem::mv(stringstream &ss)
     string dirName = pathTo.substr(pathTo.find_last_of("/") + 1);
     pathTo.erase(pathTo.length() - dirName.size());
 
-    Directory* relativeDirTo = this->getRelativeDir(pathTo);
+    auto relativeDirTo = this->parseRelativePath(pathTo);
 
-    if( !(relativeDirTo && relativeDirFrom) ) {
-        return;
+    if(relativeDirFrom.back()->getFile(name)){
+        File* f = relativeDirFrom.back()->getFile(name);
+        relativeDirTo.back()->touch(f);
+        relativeDirFrom.back()->removeReference(name);
+    }else if(relativeDirFrom.back()->getDirectory(name)){
+        Directory* d = relativeDirFrom.back()->getDirectory(name);
+        relativeDirTo.back()->mkdir(d);
+        relativeDirFrom.back()->removeReference(name);
     }
-
 }
 
 void Filesystem::mkdir(stringstream &ss)

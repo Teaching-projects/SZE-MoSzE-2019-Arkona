@@ -95,6 +95,24 @@ int Directory::touch(File *file)
 
 }
 
+void Directory::removeReference(string name)
+{
+    for(auto it = files.begin(); it != files.end();){
+        if( (**it).getName() == name){
+            files.erase(it);
+        }else{
+            it++;
+        }
+    }
+    for(auto it = directories.begin(); it != directories.end();){
+        if( (*it)->getNameRaw() == name ){
+            directories.erase(it);
+        }else{
+            it++;
+        }
+    }
+}
+
 void Directory::deleteDirectory(const string& d)
 {
     for(auto it = directories.begin(); it != directories.end();){
