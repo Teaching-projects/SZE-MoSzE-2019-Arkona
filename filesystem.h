@@ -45,10 +45,13 @@ private:
 
     void mkdir(stringstream& ss);
 
+    /**
+     * @brief mv can replace files between directoriesls
+     *
+     */
 
     void mv(stringstream& ss);
 
-=======
     /**
     * @brief List of directories/files.
     */
