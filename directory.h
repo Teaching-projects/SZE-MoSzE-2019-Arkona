@@ -61,6 +61,10 @@ public:
     * @brief touch creates file in directory
     */
 
+    /**
+    * @brief touch creates file in directory
+    */
+
     int touch(string fileName, string content);
     int touch(File* file);
     

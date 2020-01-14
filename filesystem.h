@@ -45,6 +45,21 @@ private:
 
     void mkdir(stringstream& ss);
 
+
+    void mv(stringstream& ss);
+
+=======
+    /**
+    * @brief List of directories/files.
+    */
+
+    void touch(stringstream& ss);
+        
+    /**
+    * @brief Command that lists directory contents of files and other directories.
+    */
+    
+
     /**
     * @brief List of directories/files.
     */
