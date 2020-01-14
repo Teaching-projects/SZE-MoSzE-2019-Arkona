@@ -69,7 +69,7 @@ public:
      * @brief removes object but doesnt delete it
      */
 
-    void removeReference(string name);
+    void removeReference(const string& name);
 
     /**
     * @brief Command to delete a directory.
